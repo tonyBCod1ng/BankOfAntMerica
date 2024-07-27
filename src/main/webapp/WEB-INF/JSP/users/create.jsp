@@ -19,11 +19,11 @@
 
     <div class="row justify-content-center">
         <div class="col col-10">
-            <form action="http://localhost:8080/customers/createSubmit">
+            <form action="http://localhost:8080/account/create-account" method="post">
                 <input class="hidden" name="id" value="${form.id}">
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="reportsTo" class="form-label">Sales Rep</label>
+                        <label for="reportsTo" class="form-label">Home Branch</label>
                     </div>
                     <div class="col col-6">
                         <select id="reportsTo" name="reportsTo" class="form-select">
@@ -37,12 +37,12 @@
                 </div>
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="customerName" class="form-label">Company Name</label>
+                        <label for="email" class="form-label">Email</label>
                     </div>
                     <div class="col-6">
-                        <input value="${form.customerName}" id="customerName" name="customerName" class="form-control"
-                               type="text"
-                               aria-description="company name input">
+                        <input value="${form.email}" id="email" name="email" class="form-control"
+                               type="email"
+                               aria-description="email input">
                     </div>
                 </div>
                 <div class="row justify-content-center m-4 cols-2">
@@ -68,11 +68,11 @@
 
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="form-label">Password</label>
                     </div>
                     <div class="col-6">
-                        <input value="${form.phone}" id="phone" name="phone" class="form-control" type="tel"
-                               aria-description="phone input">
+                        <input value="${form.password}" id="phone" name="password" class="form-control" type="password"
+                               aria-description="password input">
                     </div>
                 </div>
                 <div class="row justify-content-center m-4 cols-2">

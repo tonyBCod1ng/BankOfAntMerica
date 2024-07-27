@@ -14,7 +14,7 @@ import java.util.*;
 public class UserService {
 
     @Autowired
-    private UserDAO userDao;
+    private UserDAO userDAO;
 
 
     public User createUser(CreateAccountFormBean form) {
@@ -27,8 +27,9 @@ public class UserService {
         user.setPassword(form.getPassword());
         user.setCreateDate(new Date());
 
+
         // save the user to the database
-        userDao.save(user);
+        userDAO.save(user);
 
         return user;
     }
