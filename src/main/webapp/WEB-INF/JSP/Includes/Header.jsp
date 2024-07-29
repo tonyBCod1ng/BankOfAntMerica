@@ -28,6 +28,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/account/create-account">Create Account</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="/auth/logout" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="nav-link" type="submit">Log Out</button>
+                        </form>
+                    </li>
                 </ul>
 
             </div>

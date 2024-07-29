@@ -19,9 +19,6 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "user_name")
-    private String userName;
-
     @Column(name = "first_name")
     private String firstName;
 

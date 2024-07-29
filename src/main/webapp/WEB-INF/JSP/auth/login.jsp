@@ -16,15 +16,15 @@
     <div class="container">
         <div class="row pt-5 ">
             <div class="col-12">
-                <form action="/create-account" method="post">
-
+                <form action="/auth/login/loginSubmit" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <!-- email input -->
                     <div class="row align-items-center justify-content-center">
                         <div class="col-2">
                             <label for="emailId" class="col-form-label">Email</label>
                         </div>
                         <div class="col-4">
-                            <input type="text" id="emailId" name="email" class="form-control <c:if test="${bindingResult.hasFieldErrors('email')}">is-invalid</c:if>" value="${form.email}">
+                            <input type="text" id="emailId" name="username" class="form-control <c:if test="${bindingResult.hasFieldErrors('email')}">is-invalid</c:if>" value="${form.email}">
                         </div>
                     </div>
                     <c:if test="${bindingResult.hasFieldErrors('email')}">
@@ -46,7 +46,7 @@
                             <label for="passwordId" class="col-form-label">Password</label>
                         </div>
                         <div class="col-4">
-                            <input type="text"
+                            <input type="password"
                                    id="passwordId"
                                    name="password"
                                    class="form-control <c:if test="${bindingResult.hasFieldErrors('password')}">is-invalid</c:if>"

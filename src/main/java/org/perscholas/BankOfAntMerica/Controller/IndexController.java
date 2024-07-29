@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/auth")
 class IndexController {
-    @GetMapping("/")
+    @GetMapping("/login")
     ModelAndView index() {
         return new ModelAndView("auth/login");
     }
