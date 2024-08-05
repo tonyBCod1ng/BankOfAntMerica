@@ -1,36 +1,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="../Includes/Header.jsp"></jsp:include>
-
+<jsp:include page="../Includes/Header.jsp"/>
 <section>
 
     <div class="row justify-content-center text-center">
         <c:choose>
             <c:when test="${form == null}">
-                <h4>Create Customer</h4>
+                <h4>Create Account</h4>
             </c:when>
             <c:otherwise>
-                <h4>Edit Customer</h4>
+                <h4>Edit Account</h4>
             </c:otherwise>
         </c:choose></div>
 </section>
 <section>
-
-
     <div class="row justify-content-center">
         <div class="col col-10">
             <form action="http://localhost:8080/account/create-account" method="post">
-                <input class="hidden" name="id" value="${form.id}">
+                <input type="hidden" name="id" value="${form.id}">
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="reportsTo" class="form-label">Home Branch</label>
+                        <label for="branches" class="form-label">Home Branch</label>
                     </div>
                     <div class="col col-6">
-                        <select id="reportsTo" name="reportsTo" class="form-select">
-                            <c:forEach items="${reportsTo}" var="employee">
+                        <select id="branches" name="reportsTo" class="form-select">
+                            <c:forEach items="${branches}" var="branch">
                                 <option
-                                        <c:if test="${employee.id == form.employee.id}">selected</c:if>
-                                        value="${employee.id}">${employee.firstname} ${employee.lastname}</option>
+                                        <c:if test="${branch.id == form.branch.id}">selected</c:if>
+                                        value="${branch.id}">${branch.city}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -40,41 +37,41 @@
                         <label for="email" class="form-label">Email</label>
                     </div>
                     <div class="col-6">
-                        <input value="${form.email}" id="email" name="email" class="form-control"
+                        <input value="${form.email}" id="email" name="username" class="form-control"
                                type="email"
                                aria-description="email input">
                     </div>
                 </div>
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="contactFirstname" class="form-label">First Name</label>
+                        <label for="password" class="form-label">Password</label>
                     </div>
                     <div class="col-6">
-                        <input value="${form.contactFirstname}" id="contactFirstname" name="contactFirstname"
-                               class="form-control" type="text"
-                               aria-description="contact firstname input">
-                    </div>
-                </div>
-                <div class="row justify-content-center m-4 cols-2">
-                    <div class="col col-2">
-                        <label for="contactLastname" class="form-label">Last Name</label>
-                    </div>
-                    <div class="col-6">
-                        <input value="${form.contactLastname}" id="contactLastname" name="contactLastname"
-                               class="form-control" type="text"
-                               aria-description="contact firstname input">
-                    </div>
-                </div>
-
-                <div class="row justify-content-center m-4 cols-2">
-                    <div class="col col-2">
-                        <label for="phone" class="form-label">Password</label>
-                    </div>
-                    <div class="col-6">
-                        <input value="${form.password}" id="phone" name="password" class="form-control" type="password"
+                        <input value="${form.password}" id="password" name="password" class="form-control"
+                               type="password"
                                aria-description="password input">
                     </div>
                 </div>
+
+                <div style="background-color: orangered" class="row justify-content-center gx-4 col-8">
+
+                    <div class="col col-2">
+                        <input value="${form.firstName}" id="firstName" name="firstName"
+                               placeholder="First Name"
+                               class="form-control" type="text"
+                               aria-description="first name input">
+                    </div>
+
+
+                    <div class="col-2">
+                        <input value="${form.lastName}" id="lastName" name="lastName"
+                               placeholder="Last Name"
+                               class="form-control" type="text"
+                               aria-description="last name input">
+                    </div>
+                </div>
+
+
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col-2">
                         <label for="addressLine1" class="form-label">Address Line 1</label>
@@ -97,12 +94,12 @@
                 </div>
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
-                        <label for="postalCode" class="form-label">Postal Code</label>
+                        <label for="zipcode" class="form-label">Postal Code</label>
                     </div>
                     <div class="col-6">
-                        <input value="${form.postalCode}" id="postalCode" name="postalCode" class="form-control"
+                        <input value="${form.zipcode}" id="zipcode" name="zipcode" class="form-control"
                                type="number"
-                               aria-description="address line 1 input">
+                               aria-description="zipcode input">
                     </div>
                 </div>
                 <div class="row justify-content-center m-4 cols-2">
@@ -129,7 +126,7 @@
                     </div>
                     <div class="col-6">
                         <input value="${form.country}" id="country" name="country" class="form-control" type="text"
-                               aria-description="state input">
+                               aria-description="country input">
                     </div>
                 </div>
                 <div class="row justify-content-center cols-1">
@@ -142,4 +139,4 @@
         </div>
     </div>
 </section>
-<jsp:include page="../Includes/Footer.jsp"></jsp:include>
+<jsp:include page="../Includes/Footer.jsp"/>
