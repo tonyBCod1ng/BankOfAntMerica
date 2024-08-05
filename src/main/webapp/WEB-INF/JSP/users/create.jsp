@@ -1,3 +1,4 @@
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../Includes/Header.jsp"/>
@@ -16,7 +17,8 @@
 <section>
     <div class="row justify-content-center">
         <div class="col col-10">
-            <form action="http://localhost:8080/account/create-account" method="post">
+            <form action="/account/create-account" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="id" value="${form.id}">
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col col-2">
@@ -70,7 +72,18 @@
                                aria-description="last name input">
                     </div>
                 </div>
-
+                <sec:authorize access="hasAuthority('ADMIN')">
+                    <div class="row justify-content-center m-4 cols-2">
+                        <div class="col-2">
+                            <label for="role" class="form-label">Role</label>
+                        </div>
+                        <div class="col-6">
+                            <input value="${form.role}" id="role" name="role" class="form-control"
+                                   type="text"
+                                   aria-description="role input">
+                        </div>
+                    </div>
+                </sec:authorize>
 
                 <div class="row justify-content-center m-4 cols-2">
                     <div class="col-2">

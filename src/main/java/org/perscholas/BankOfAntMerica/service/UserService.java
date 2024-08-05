@@ -2,7 +2,9 @@ package org.perscholas.BankOfAntMerica.service;
 
 import lombok.extern.slf4j.*;
 import org.perscholas.BankOfAntMerica.database.DAO.UserDAO;
+import org.perscholas.BankOfAntMerica.database.DAO.UserRoleDAO;
 import org.perscholas.BankOfAntMerica.database.Entity.User;
+import org.perscholas.BankOfAntMerica.database.Entity.UserRole;
 import org.perscholas.BankOfAntMerica.form.CreateAccountFormBean;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,8 @@ public class UserService {
 
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private UserRoleDAO userRoleDAO;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -35,13 +39,25 @@ public class UserService {
         user.setEmail(form.getUsername());
         // we are getting in a plain text password because the user entered it into the form
         user.setPassword(password);
-        user.setCreateDate(new Date());
-
-
+        user.setCreateTime(new Date().toInstant());
         // save the user to the database
         userDAO.save(user);
 
         return user;
     }
 
+   public UserRole assignUserRole(CreateAccountFormBean form) {
+        User user = userDAO.findByEmailIgnoreCase(form.getUsername());
+        String role = form.getRole();
+        if(role == null){
+            role = "USER";
+        }
+        UserRole assignedUserRole = new UserRole();
+        assignedUserRole.setUserId(user.getId());
+        assignedUserRole.setRoleName(role);
+        assignedUserRole.setCreateTime(new Date().toInstant());
+        userRoleDAO.save(assignedUserRole);
+
+        return assignedUserRole;
+    }
 }

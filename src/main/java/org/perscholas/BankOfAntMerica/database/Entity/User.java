@@ -1,56 +1,69 @@
 package org.perscholas.BankOfAntMerica.database.Entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.util.Date;
+import java.time.Instant;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "first_name")
+    @Size(max = 45)
+    @Column(name = "first_name", length = 45)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Size(max = 45)
+    @Column(name = "last_name", length = 45)
     private String lastName;
 
-    @Column(name = "address_line_1")
+    @Size(max = 45)
+    @Column(name = "address_line_1", length = 45)
     private String addressLine1;
 
-    @Column(name = "address_line_2")
+    @Size(max = 45)
+    @Column(name = "address_line_2", length = 45)
     private String addressLine2;
 
-    @Column(name = "city")
+    @Size(max = 45)
+    @Column(name = "city", length = 45)
     private String city;
 
-    @Column(name = "state")
+    @Size(max = 45)
+    @Column(name = "state", length = 45)
     private String state;
 
-    @Column(name = "zipcode")
+    @Size(max = 45)
+    @Column(name = "zipcode", length = 45)
     private String zipcode;
 
-    @Column(name = "phone")
+    @Size(max = 45)
+    @Column(name = "phone", length = 45)
     private String phone;
 
-    @Column(name = "email")
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "email", nullable = false, length = 45)
     private String email;
 
-    @Column(name = "password")
+    @Size(max = 200)
+    @NotNull
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
 
-    @Column(name = "create_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @NotNull
+    @Column(name = "create_time", nullable = false)
+    private Instant createTime;
 
 }

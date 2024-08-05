@@ -1,0 +1,14 @@
+body{
+    background-image: url("../../public/images/ant_with_arms_crossed.jpg");
+    background-size: cover;
+}
+
+.container{
+    height: 86vh;
+}
+nav, input{
+    opacity: 0.9;
+}
+nav{
+    background-color: rgb(123, 238, 233);
+}

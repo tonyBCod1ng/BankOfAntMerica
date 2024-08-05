@@ -12,8 +12,8 @@
             <div class="col col-8">
                 <form>
                     <div>
-                        <label for="name" class="form-label"><h4>Customer Search</h4></label>
-                        <input name="name" id="name" type="text" class="form-control" value="${name}" placeholder="Enter name here">
+                        <label for="name" class="form-label"><h4>Admin Search Tool</h4></label>
+                        <input name="term" id="name" type="text" class="form-control" value="${term}" placeholder="Enter Search Term">
                     </div>
                     <button type="submit" class="btn btn-primary m-3">Search</button>
                 </form>
@@ -25,16 +25,19 @@
 
             <table class="table col col-5" >
                 <tr>
-                    <th>Id</th>
-                    <th>Customer Name</th>
-                    <th>Country</th>
+                    <th>Account Id</th>
+                    <th>User Id</th>
+                    <th>Account Amount</th>
+                    <th>Branch Id</th>
                 </tr>
-                <c:forEach items="${customers}" var="customer">
+                <c:forEach items="${foundAccounts}" var="account">
 
                     <tr>
-                        <td><a href="http://localhost:8080/customers/customer/${customer.id}">${customer.id}</a></td>
-                        <td>${customer.customerName}</td>
-                        <td>${customer.country}</td>
+
+                        <td>${account.id}</td>
+                        <td>${account.userId}</td>
+                        <td>${account.accountAmount}</td>
+                        <td>${account.branchId}</td>
                     </tr>
 
                 </c:forEach>

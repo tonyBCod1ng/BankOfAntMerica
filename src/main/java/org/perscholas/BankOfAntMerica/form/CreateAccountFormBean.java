@@ -33,5 +33,7 @@ public class CreateAccountFormBean {
 
     private String password;
 
+    private String role;
+
     private Date createDate;
 }
