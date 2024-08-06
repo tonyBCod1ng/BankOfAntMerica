@@ -1,6 +1,7 @@
 package org.perscholas.BankOfAntMerica.database.Entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -19,9 +20,8 @@ public class AccountTransaction {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    @Column(name = "account_id", nullable = false)
+    private Integer accountId;
 
 
     @NotNull
@@ -37,8 +37,7 @@ public class AccountTransaction {
     private Instant lastChanged;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "branch_id", nullable = false)
-    private Branch branch;
+    @Column(name = "branch_id", nullable = false)
+    private Integer branchId;
 
 }

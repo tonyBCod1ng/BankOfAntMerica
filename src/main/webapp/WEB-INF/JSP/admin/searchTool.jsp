@@ -23,7 +23,7 @@
     <section>
         <div class="row justify-content-center">
 
-            <table class="table col col-5" >
+            <table class="table table-striped table-primary col col-5" >
                 <tr>
                     <th>Account Id</th>
                     <th>User Id</th>

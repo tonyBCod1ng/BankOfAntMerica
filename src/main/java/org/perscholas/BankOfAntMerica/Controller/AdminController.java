@@ -1,6 +1,5 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.perscholas.BankOfAntMerica.Security.AuthenticatedUserUtils;
 import org.perscholas.BankOfAntMerica.database.DAO.AccountDAO;
@@ -11,7 +10,6 @@ import org.perscholas.BankOfAntMerica.database.Entity.AccountTransaction;
 import org.perscholas.BankOfAntMerica.database.Entity.Branch;
 import org.perscholas.BankOfAntMerica.database.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +48,7 @@ public class AdminController {
         response.addObject("accountTransactions", accountTransactions);
 
         List<Account> managedAccounts = accountDAO.findByBranchId(branch.getId());
+        response.addObject("managedAccounts", managedAccounts);
 
         return response;
     }

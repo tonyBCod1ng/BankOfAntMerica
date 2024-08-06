@@ -6,9 +6,11 @@ import lombok.extern.slf4j.*;
 import org.perscholas.BankOfAntMerica.Security.AuthenticatedUserUtils;
 import org.perscholas.BankOfAntMerica.database.DAO.AccountDAO;
 import org.perscholas.BankOfAntMerica.database.DAO.AccountTransactionDAO;
+import org.perscholas.BankOfAntMerica.database.DAO.BranchDAO;
 import org.perscholas.BankOfAntMerica.database.DAO.UserDAO;
 import org.perscholas.BankOfAntMerica.database.Entity.Account;
 import org.perscholas.BankOfAntMerica.database.Entity.AccountTransaction;
+import org.perscholas.BankOfAntMerica.database.Entity.Branch;
 import org.perscholas.BankOfAntMerica.database.Entity.User;
 import org.perscholas.BankOfAntMerica.form.CreateAccountFormBean;
 import org.perscholas.BankOfAntMerica.service.UserService;
@@ -27,6 +29,8 @@ public class UserController {
 
     @Autowired
     private UserDAO userDao;
+    @Autowired
+    private BranchDAO branchDao;
 
     @Autowired
     private UserService userService;
@@ -41,7 +45,8 @@ public class UserController {
     @GetMapping("/create-account")
     public ModelAndView createAccount() {
         ModelAndView response = new ModelAndView("users/create");
-
+        List<Branch> branches = branchDao.findAll();
+        response.addObject("branches", branches);
         return response;
     }
 
