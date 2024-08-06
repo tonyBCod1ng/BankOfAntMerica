@@ -10,29 +10,27 @@
             </div>
         </div>
     </c:if>
-    <div class="row justify-center col-4">
-<div class="back"></div>
-    <h1>Bank Of AntMerica</h1>
-            <div class="col">
-                <form action="/auth/login/loginSubmit" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <div class="row justify-content-center text-center col-4">
+        <div class="back"></div>
+        <div class="col">
+            <form action="/auth/login/loginSubmit" method="post">
+                <h1>Bank Of AntMerica</h1>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                    <div class="form-group">
-                        <label for="username">Email address</label>
-                        <input name="username" type="email" class="form-control" id="username"
-                               aria-describedby="username"
-                               placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" type="password" class="form-control" id="password"
-                               placeholder="Password">
-                    </div>
+                <div class="form-group m-4">
+                    <input name="username" type="email" class="form-control" id="username"
+                           aria-describedby="username"
+                           placeholder="Enter email">
+                </div>
+                <div class="form-group m-4">
+                    <input name="password" type="password" class="form-control" id="password"
+                           placeholder="Password">
+                </div>
 
-                    <button type="submit" class="btn btn-primary m-3">Sign In</button>
-                    <a href="/users/create-account">Join the Colony!</a>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary m-3">Sign In</button>
+                <a href="/users/create-account">Join the Colony!</a>
+            </form>
+        </div>
     </div>
 </section>
 <jsp:include page="../Includes/Footer.jsp"/>
