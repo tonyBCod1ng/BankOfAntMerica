@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/users/create-account">Create Account</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/searchTool">Search</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">

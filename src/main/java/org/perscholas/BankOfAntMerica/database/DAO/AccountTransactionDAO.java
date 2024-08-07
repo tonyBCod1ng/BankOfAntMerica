@@ -9,5 +9,6 @@ import java.util.List;
 public interface AccountTransactionDAO extends JpaRepository<AccountTransaction, Integer> {
     List<AccountTransaction>findByBranchId(Integer id);
     List<AccountTransaction>findByAccountId(Integer id);
+    AccountTransaction findAccountTransactionById(Integer id);
 
 }

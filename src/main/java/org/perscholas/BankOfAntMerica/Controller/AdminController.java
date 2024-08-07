@@ -118,4 +118,15 @@ public class AdminController {
         response.setViewName("redirect:/");
         return response;
     }
+
+    @RequestMapping("/transaction/{id}")
+        public ModelAndView transaction(@PathVariable Integer id) {
+        ModelAndView response = new ModelAndView("users/transactionDetails");
+        User user = userDAO.findUserById(authenticatedUserUtils.getCurrentUserObject().getId());
+        AccountTransaction accountTransaction = accountTransactionDAO.findAccountTransactionById(id);
+        response.addObject("transaction", accountTransaction);
+        response.addObject("user", user);
+        return response;
+
+        }
 }
