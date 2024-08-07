@@ -24,10 +24,13 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(CreateAccountFormBean form) {
+        String password = passwordEncoder.encode(form.getPassword());
         // there were no errors so we can create the new user in the database
         User user = new User();
         user.setCreateTime(new Date().toInstant());
         populateUserObject(form, user);
+        user.setPassword(password);
+
         // save the user to the database
         userDAO.save(user);
 
@@ -35,7 +38,6 @@ public class UserService {
     }
 
     public void populateUserObject(CreateAccountFormBean form, User user) {
-        String password = passwordEncoder.encode(form.getPassword());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
         user.setAddressLine1(form.getAddressLine1());
@@ -48,7 +50,6 @@ public class UserService {
         user.setEmail(form.getUsername());
         user.setHomeBranch(form.getBranch());
         // we are getting in a plain text password because the user entered it into the form
-        user.setPassword(password);
     }
 
     public UserRole assignUserRole(CreateAccountFormBean form) {

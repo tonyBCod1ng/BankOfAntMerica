@@ -4,8 +4,11 @@
 
 
 <div class="row" style="height: 30vh">
-<div class="row text-center">
-    <div class="col col-10"><h2>Welcome, ${user.firstName}!</h2></div>
+<div class="row justify-content-center text-center cols-2">
+    <div class="col col-6"></div>
+    <div class="col col-4">
+        <h3 style="font-size: 40pt">Welcome, ${user.firstName}!</h3>
+    </div>
 </div>
 </div>
 <div  class="row justify-content-center text-center">

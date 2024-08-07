@@ -51,7 +51,7 @@
                             </form>
                         </li>
                         <li>
-                            <span class="nav-link">Welcome, <sec:authentication property="name"/>!</span>
+                            <button class="nav-link"><sec:authentication property="name"/></button>
                         </li>
                     </sec:authorize>
                 </ul>

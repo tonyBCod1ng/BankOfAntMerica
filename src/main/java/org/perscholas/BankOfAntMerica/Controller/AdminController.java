@@ -101,7 +101,8 @@ public class AdminController {
         if (user == null) {
             user = userService.createUser(formBean);
         }
-        Account account = new Account();
+        if (formBean.getAccountAmount() != null) {
+            Account account = new Account();
 
             account.setAccountAmount(formBean.getAccountAmount());
             account.setAccountType(formBean.getAccountType());
@@ -109,13 +110,14 @@ public class AdminController {
             account.setUserId(user.getId());
             account.setCreateDate(new Date().toInstant());
             accountDAO.save(account);
+        }
 
         userService.populateUserObject(formBean, user);
         userService.assignUserRole(formBean);
         log.debug(formBean.toString());
         userDAO.save(user);
 
-        response.setViewName("redirect:/");
+        response.setViewName("redirect:/admin/dashboard");
         return response;
     }
 
