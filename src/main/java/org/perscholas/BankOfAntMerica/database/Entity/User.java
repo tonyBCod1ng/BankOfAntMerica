@@ -5,14 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "users")
 public class User {
     @Id
@@ -61,6 +60,10 @@ public class User {
     @NotNull
     @Column(name = "password", nullable = false, length = 200)
     private String password;
+
+    @NotNull
+    @Column(name = "home_branch", nullable = false)
+    private Integer homeBranch;
 
     @NotNull
     @Column(name = "create_time", nullable = false)

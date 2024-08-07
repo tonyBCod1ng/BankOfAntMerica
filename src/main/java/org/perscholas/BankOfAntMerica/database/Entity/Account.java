@@ -37,9 +37,8 @@ public class Account {
     @Column(name = "create_date")
     private Instant createDate;
 
-    @Size(max = 45)
     @NotNull
-    @Column(name = "branch_id", nullable = false, length = 45)
+    @Column(name = "branch_id")
     private Integer branchId;
 
 }

@@ -1,9 +1,13 @@
 package org.perscholas.BankOfAntMerica.form;
 
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -35,5 +39,14 @@ public class CreateAccountFormBean {
 
     private String role;
 
-    private Date createDate;
+    private Integer branch;
+
+    private Instant createDate;
+
+    private String accountType;
+
+    private Integer accountAmount;
+
+    private Instant lastEdited;
+
 }

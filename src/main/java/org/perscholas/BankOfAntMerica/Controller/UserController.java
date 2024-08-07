@@ -66,11 +66,14 @@ public class UserController {
             response.addObject("form", form);
         } else {
             // there were no errors so we can create the new user in the database
+            if(form.getRole() == null){
+                form.setRole("USER");
+            }
             userService.createUser(form);
             userService.assignUserRole(form);
             authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
         }
-        response.setViewName("redirect:users/dashboard");
+        response.setViewName("redirect:/dashboard");
         return response;
     }
 

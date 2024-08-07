@@ -26,6 +26,15 @@ public class UserService {
     public User createUser(CreateAccountFormBean form) {
         // there were no errors so we can create the new user in the database
         User user = new User();
+        user.setCreateTime(new Date().toInstant());
+        populateUserObject(form, user);
+        // save the user to the database
+        userDAO.save(user);
+
+        return user;
+    }
+
+    public void populateUserObject(CreateAccountFormBean form, User user) {
         String password = passwordEncoder.encode(form.getPassword());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
@@ -37,26 +46,32 @@ public class UserService {
         user.setPhone(form.getPhone());
         user.setFirstName(form.getFirstName());
         user.setEmail(form.getUsername());
+        user.setHomeBranch(form.getBranch());
         // we are getting in a plain text password because the user entered it into the form
         user.setPassword(password);
-        user.setCreateTime(new Date().toInstant());
-        // save the user to the database
-        userDAO.save(user);
-
-        return user;
     }
 
-   public UserRole assignUserRole(CreateAccountFormBean form) {
+    public UserRole assignUserRole(CreateAccountFormBean form) {
         User user = userDAO.findByEmailIgnoreCase(form.getUsername());
         String role = form.getRole();
-        if(role == null){
+        if(role == null) {
             role = "USER";
         }
-        UserRole assignedUserRole = new UserRole();
-        assignedUserRole.setUserId(user.getId());
-        assignedUserRole.setRoleName(role);
-        assignedUserRole.setCreateTime(new Date().toInstant());
-        userRoleDAO.save(assignedUserRole);
+        List<UserRole> usersRole = userRoleDAO.findByUserId(user.getId());
+            UserRole assignedUserRole = new UserRole();
+        if(usersRole.isEmpty()) {
+            assignedUserRole.setUserId(user.getId());
+            assignedUserRole.setRoleName(role);
+            assignedUserRole.setCreateTime(new Date().toInstant());
+            userRoleDAO.save(assignedUserRole);
+        }
+        for(UserRole userRole : usersRole) {
+            if(userRole.getRoleName().equals(role)) {
+                break;
+            }
+            userRole.setRoleName(role);
+        }
+
 
         return assignedUserRole;
     }

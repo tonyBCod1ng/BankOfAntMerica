@@ -16,16 +16,26 @@
                     <h4>Edit Account</h4>
                 </c:otherwise>
             </c:choose></div>
-            <form class="form" action="/account/create-account" method="post">
+            <form class="form"
+                  action=
+            <c:choose>
+                <c:when test="${form == null}">
+                          "/users/create-account"
+                </c:when>
+                <c:otherwise>
+                    "/admin/edit/${form.id}"
+                </c:otherwise>
+            </c:choose>
+                  method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="id" value="${form.id}">
                 <div class="row justify-content-center m-4">
 
                     <div class="col col-6">
-                        <select id="branches" name="reportsTo" class="form-select">
+                        <select id="branches" name="branch" class="form-select">
                             <c:forEach items="${branches}" var="branch">
                                 <option
-                                        <c:if test="${branch.id == form.branch.id}">selected</c:if>
+                                        <c:if test="${branch.id == homeBranch.id}">selected</c:if>
                                         value="${branch.id}">${branch.city}</option>
                             </c:forEach>
                         </select>
@@ -67,10 +77,10 @@
                     </div>
                     <sec:authorize access="hasAuthority('ADMIN')">
                         <div class="col col-2 form-check">
-                            <input name="role" class="form-check-input" type="checkbox" value="" id="role">
                             <label class="form-check-label" for="role">
-                               Admin:
+                                Admin:
                             </label>
+                            <input name="role" class="form-check-input" type="checkbox" value="ADMIN" id="role"<c:if test="${roles.contains('ADMIN')}">checked</c:if> >
                         </div>
                     </sec:authorize>
                 </div>
@@ -104,7 +114,7 @@
                                aria-description="state input">
                     </div>
                     <div class="col-2">
-                        <input placeholder="Country" value="${form.country}" id="country" name="country"
+                        <input placeholder="Country" value="${USA}" id="country" name="country"
                                class="form-control" type="text"
                                aria-description="country input">
                     </div>
@@ -115,6 +125,21 @@
                                aria-description="zipcode input">
                     </div>
                 </div>
+            <sec:authorize access="hasAuthority('ADMIN')">
+                <div class="row justify-content-center m-4 cols-3">
+
+                    <div class="col-2">
+                        <input placeholder="Account Type" id="account-type" name="accountType" class="form-control"
+                               type="text"
+                               aria-description="account type input">
+                    </div>
+                    <div class="col-2">
+                        <input placeholder="Initial Amount" value="" id="initial-amount" name="accountAmount"
+                               class="form-control" type="number"
+                               aria-description="account amount input">
+                    </div>
+                </div>
+            </sec:authorize>
 
                 <div class="row m-4 justify-content-center cols-1">
                     <div class="col col-1">

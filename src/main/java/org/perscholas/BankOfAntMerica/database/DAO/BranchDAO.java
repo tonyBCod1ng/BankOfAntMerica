@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BranchDAO extends JpaRepository<Branch, Integer> {
     Branch findByManagerId(Integer managerId);
-    Branch findById(int id);
+    Branch findBranchById(int id);
 }
