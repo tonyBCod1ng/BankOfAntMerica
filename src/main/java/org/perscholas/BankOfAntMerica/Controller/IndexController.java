@@ -48,7 +48,7 @@ class IndexController {
         response.addObject("accounts", accounts);
         return response;
     }
-    @PostMapping("/post")
+    @PostMapping("/")
     ModelAndView indexPost(CreateTransferBean formBean){
         User currentUser = authenticatedUserUtils.getCurrentUserObject();
         log.debug(formBean.toString());

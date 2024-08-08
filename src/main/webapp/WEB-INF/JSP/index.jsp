@@ -5,7 +5,7 @@
     <div class="row" style="height: 5vh"></div>
     <h1>Transfer Funds</h1>
 
-    <form class="form" action="/post" method="post" >
+    <form class="form" action="/" method="post" >
         <div class="row justify-content-center m-4 cols-3">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
