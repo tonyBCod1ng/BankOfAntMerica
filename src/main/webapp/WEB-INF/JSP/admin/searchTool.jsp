@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <jsp:include page="../Includes/Header.jsp"></jsp:include>
 
@@ -24,16 +25,29 @@
         <div class="row justify-content-center">
 
             <table class="table table-striped table-primary col col-5" >
-                <tr>
-                    <th>Account Id</th>
-                    <th>User Id</th>
-                    <th>Account Amount</th>
-                    <th>Branch Id</th>
-                </tr>
+                <c:choose>
+                    <c:when test="${accountView != null}">
+                    <tr>
+                        <th>Account Id</th>
+                        <th>User Id</th>
+                        <th>Account Amount</th>
+                        <th>Branch Id</th>
+                        <th></th>
+                    </tr>
+                </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <th>User Id</th>
+                            <th>Home Branch</th>
+                            <th>E-mail</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
                 <c:forEach items="${foundAccounts}" var="account">
 
                     <tr>
-
                         <td>${account.id}</td>
                         <td>${account.userId}</td>
                         <td>${account.accountAmount}</td>
@@ -41,6 +55,19 @@
                     </tr>
 
                 </c:forEach>
+                <security:authorize access="hasAuthority('ADMIN')">
+                    <c:forEach items="${users}" var="user">
+
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.homeBranch}</td>
+                        <td>${user.email}</td>
+                        <td>${user.lastName}, ${user.firstName}</td>
+                        <td><a href="http://localhost:8080/admin/edit/${user.id}">Edit</a></td>
+                    </tr>
+
+                </c:forEach>
+                </security:authorize>
             </table>
 
         </div>

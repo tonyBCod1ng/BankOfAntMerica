@@ -1,5 +1,7 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.perscholas.BankOfAntMerica.Security.AuthenticatedUserUtils;
 import org.perscholas.BankOfAntMerica.Security.UserDetailsServiceImpl;
@@ -11,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -62,9 +67,11 @@ public class AdminController {
         return response;
     }
 
-    @GetMapping("/searchTool")
-    public ModelAndView searchTool(@RequestParam(required = false) String term) {
+    @GetMapping("/searchTool/accounts")
+    public ModelAndView searchToolAccounts(@RequestParam(required = false) String term) {
         ModelAndView response = new ModelAndView("admin/searchTool");
+        String accountView = "yes";
+        response.addObject("accountView", accountView);
         if (term != null) {
             List<Account> searchedAccount = accountDAO.findAllByCustomerTerm(term);
             response.addObject("foundAccounts", searchedAccount);
@@ -73,12 +80,23 @@ public class AdminController {
         return response;
     }
 
+    @GetMapping("/searchTool/users")
+    public ModelAndView searchToolUsers(@RequestParam(required = false) String term) {
+        ModelAndView response = new ModelAndView("admin/searchTool");
+        List<User> users = userDAO.findAllByCustomTerm(term);
+        response.addObject("users", users);
+        log.debug(users.toString());
+        response.addObject("term", term);
+        return response;
+
+    }
+
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Integer id) {
         ModelAndView response = new ModelAndView("users/create");
         User user = userDAO.findUserById(id);
         List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId());
-            List<String> userRoleNames = new ArrayList<>();
+        List<String> userRoleNames = new ArrayList<>();
         if (userRoles.size() > 0) {
             for (UserRole userRole : userRoles) {
                 userRoleNames.add(userRole.getRoleName());
@@ -101,6 +119,11 @@ public class AdminController {
         if (user == null) {
             user = userService.createUser(formBean);
         }
+
+        userService.populateUserObject(formBean, user);
+        userService.assignUserRole(formBean);
+        log.debug(formBean.toString());
+        userDAO.save(user);
         if (formBean.getAccountAmount() != null) {
             Account account = new Account();
 
@@ -112,17 +135,12 @@ public class AdminController {
             accountDAO.save(account);
         }
 
-        userService.populateUserObject(formBean, user);
-        userService.assignUserRole(formBean);
-        log.debug(formBean.toString());
-        userDAO.save(user);
-
         response.setViewName("redirect:/admin/dashboard");
         return response;
     }
 
-    @RequestMapping("/transaction/{id}")
-        public ModelAndView transaction(@PathVariable Integer id) {
+    @GetMapping("/transaction/{id}")
+    public ModelAndView transaction(@PathVariable Integer id) {
         ModelAndView response = new ModelAndView("users/transactionDetails");
         User user = userDAO.findUserById(authenticatedUserUtils.getCurrentUserObject().getId());
         AccountTransaction accountTransaction = accountTransactionDAO.findAccountTransactionById(id);
@@ -130,5 +148,52 @@ public class AdminController {
         response.addObject("user", user);
         return response;
 
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+
+    @GetMapping("/create-account")
+    public ModelAndView createAccount() {
+        ModelAndView response = new ModelAndView("users/create");
+        List<Branch> branches = branchDAO.findAll();
+        response.addObject("branches", branches);
+        return response;
+    }
+
+    @PostMapping("/create-account")
+    public ModelAndView createAccountSubmit(@Valid CreateAccountFormBean form, BindingResult bindingResult, HttpSession session) {
+        ModelAndView response = new ModelAndView();
+
+        // homework if you want - check to make sure the email does not already exist
+        // this is a great case the custom annotation that we made
+
+        if (bindingResult.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                log.debug("Validation error : {} = {}", ((FieldError) error).getField(), error.getDefaultMessage());
+            }
+
+            response.addObject("bindingResult", bindingResult);
+            response.addObject("form", form);
+        } else {
+            // there were no errors so we can create the new user in the database
+            if (form.getRole() == null) {
+                form.setRole("USER");
+            }
+            User user = userService.createUser(form);
+            userService.assignUserRole(form);
+            if (form.getAccountAmount() != null) {
+                Account account = new Account();
+
+                account.setAccountAmount(form.getAccountAmount());
+                account.setAccountType(form.getAccountType());
+                account.setBranchId(user.getHomeBranch());
+                account.setUserId(user.getId());
+                account.setCreateDate(new Date().toInstant());
+                accountDAO.save(account);
+            }
+            authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
         }
+        response.setViewName("redirect:/");
+        return response;
+    }
 }

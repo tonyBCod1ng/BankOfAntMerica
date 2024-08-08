@@ -17,15 +17,13 @@
                     </c:otherwise>
                 </c:choose></div>
             <form class="form"
-                  action=
-                  <c:choose>
-                  <c:when test="${form == null}">
-                          "/users/create-account"
-            </c:when>
-            <c:otherwise>
-                "/admin/edit/${form.id}"
-            </c:otherwise>
-            </c:choose>
+                  <sec:authorize access="hasAuthority('ADMIN')">
+                action="/admin/create-account"
+                  </sec:authorize>
+                    <sec:authorize access="hasAuthority('USER')">
+                      action="/users/create-account"
+
+                  </sec:authorize>
             method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <input type="hidden" name="id" value="${form.id}">

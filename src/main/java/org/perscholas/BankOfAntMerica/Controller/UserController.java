@@ -73,7 +73,7 @@ public class UserController {
             userService.assignUserRole(form);
             authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
         }
-        response.setViewName("redirect:/dashboard");
+        response.setViewName("redirect:/");
         return response;
     }
 

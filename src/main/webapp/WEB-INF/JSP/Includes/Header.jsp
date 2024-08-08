@@ -40,7 +40,10 @@
                             <a class="nav-link" href="/users/create-account">Create Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/searchTool">Search</a>
+                            <a class="nav-link" href="/admin/searchTool/users">Search Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/searchTool/accounts">Search Accounts</a>
                         </li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
