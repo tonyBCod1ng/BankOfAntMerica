@@ -17,5 +17,5 @@ public interface AccountDAO extends JpaRepository<Account, Integer> {
 
     //@Query(value = "select a from accounts a, user u where a.user_id = u.id and u.home_branch = :branchId", nativeQuery = true)
     List<Account> findByBranchId(int branchId);
-
+    Account findAccountById(int id);
 }
