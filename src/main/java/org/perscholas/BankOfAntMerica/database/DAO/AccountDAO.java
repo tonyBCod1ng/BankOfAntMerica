@@ -9,9 +9,8 @@ import java.util.List;
 
 public interface AccountDAO extends JpaRepository<Account, Integer> {
 
-    @Query("select a from Account a where concat(a.id, '', a.branchId, '', a.userId) like concat('%', :term, '%') ")
+    @Query("select a from Account a where concat(a.id, '', a.branchId, '', a.user.id) like concat('%', :term, '%') ")
     List<Account>findAllByCustomerTerm(String term);
-
     Account findAccountByUserId(int userId);
     List<Account> findAccountsByUserId(int userId);
 

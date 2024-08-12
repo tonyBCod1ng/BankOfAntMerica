@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -24,8 +25,9 @@ public class Account {
     private String accountType;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @NotNull
     @Column(name = "account_amount", nullable = false)
@@ -38,7 +40,8 @@ public class Account {
     private Instant createDate;
 
     @NotNull
-    @Column(name = "branch_id")
+    @Column(name = "branch_id", nullable = false)
     private Integer branchId;
+
 
 }

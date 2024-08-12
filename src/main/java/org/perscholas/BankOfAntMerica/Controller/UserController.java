@@ -1,5 +1,6 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.*;
 import lombok.extern.slf4j.*;
@@ -15,7 +16,9 @@ import org.perscholas.BankOfAntMerica.database.Entity.User;
 import org.perscholas.BankOfAntMerica.form.CreateAccountFormBean;
 import org.perscholas.BankOfAntMerica.service.UserService;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.*;
+import org.springframework.ui.Model;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -43,8 +46,10 @@ public class UserController {
 
 
     @GetMapping("/create-account")
-    public ModelAndView createAccount() {
+    public ModelAndView createAccount(Model model) {
         ModelAndView response = new ModelAndView("users/create");
+        model.addAttribute("currentPage", "create");
+        response.addObject(model);
         List<Branch> branches = branchDao.findAll();
         response.addObject("branches", branches);
         return response;
@@ -64,6 +69,9 @@ public class UserController {
 
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
+            response.addObject("currentPage", "create");
+            response.setViewName("users/create");
+            return response;
         } else {
             // there were no errors so we can create the new user in the database
             if(form.getRole() == null){
@@ -73,20 +81,20 @@ public class UserController {
             userService.assignUserRole(form);
             authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
         }
-        response.setViewName("redirect:/");
+        response.setViewName("redirect:/users/dashboard");
         return response;
     }
 
     @GetMapping("/dashboard")
-    ModelAndView userDashboard(HttpSession session) {
-        ModelAndView response = new ModelAndView();
-        response.setViewName("users/dashboard");
+    ModelAndView userDashboard(HttpServletRequest request, Model model) {
+        ModelAndView response = new ModelAndView("users/dashboard");
+        model.addAttribute("currentPage", "dashBoard");
+        response.addObject(model);
         User currentUser = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("currentUser", currentUser);
-        Account account = accountDAO.findAccountByUserId(currentUser.getId());
-        response.addObject("account", account);
-        List<AccountTransaction> transactions = accountTransactionDAO.findByAccountId(account.getId());
-        response.addObject("transactions", transactions);
+        String url = request.getRequestURI();
+        log.debug("User dashboard url : {}", url);
+        response.addObject("url", url);
         List<Account> accounts = accountDAO.findAccountsByUserId(currentUser.getId());
         response.addObject("managedAccounts", accounts);
 

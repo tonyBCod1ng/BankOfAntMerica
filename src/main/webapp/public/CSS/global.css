@@ -4,8 +4,9 @@ body {
     background-size: cover;
 }
 
-.container {
-    height: 88vh;
+.container{
+    position: sticky;
+    height: 100vh;
 }
 
 nav, input, select {

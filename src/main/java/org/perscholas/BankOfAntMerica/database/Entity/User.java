@@ -8,12 +8,15 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
 public class User {
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Account> accounts;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -62,6 +65,7 @@ public class User {
     private String password;
 
     @NotNull
+    @ColumnDefault("1")
     @Column(name = "home_branch", nullable = false)
     private Integer homeBranch;
 

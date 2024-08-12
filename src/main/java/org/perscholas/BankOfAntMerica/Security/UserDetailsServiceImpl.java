@@ -27,9 +27,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public static Collection<? extends GrantedAuthority> buildGrantedAuthorities(Collection<UserRole> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (UserRole role : userRoles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-        }
+        userRoles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+//        for (UserRole role : userRoles) {
+//            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+//        }
         return authorities;
     }
 

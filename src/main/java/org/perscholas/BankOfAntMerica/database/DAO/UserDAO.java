@@ -12,6 +12,6 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     List<User> findAllByCustomTerm(String term);
 
     User findByEmailIgnoreCase(String email);
-
+    @Query(value = "select * from users u where u.id = :id", nativeQuery = true)
     User findUserById(Integer id);
 }

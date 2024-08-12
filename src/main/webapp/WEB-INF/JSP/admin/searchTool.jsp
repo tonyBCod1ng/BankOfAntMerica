@@ -32,7 +32,6 @@
                         <th>User Id</th>
                         <th>Account Amount</th>
                         <th>Branch Id</th>
-                        <th></th>
                     </tr>
                 </c:when>
                     <c:otherwise>
@@ -49,7 +48,7 @@
 
                     <tr>
                         <td>${account.id}</td>
-                        <td>${account.userId}</td>
+                        <td>${account.user.id}</td>
                         <td>${account.accountAmount}</td>
                         <td>${account.branchId}</td>
                     </tr>

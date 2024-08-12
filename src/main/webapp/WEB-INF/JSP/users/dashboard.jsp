@@ -1,22 +1,31 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../Includes/Header.jsp"/>
-<h2>Welcome, ${user.firstName}!</h2>
-<h2>Account Details</h2>
+<section>
+    <div style="height: 20vh;" class="row justify-content-right">
+        <div class="col">
+            <h2>Welcome, ${currentUser.firstName}!</h2>
+        </div>
+    </div>
 
-<h3>Total Transactions Completed (${transactions.size()})</h3>
-<h3>Total Accounts Open (${managedAccounts.size()}) </h3>
-
-<table class="table">
+</section>
+<table class="table table-info table-striped bg-info">
     <tr>
-        <th>Transaction Id</th>
-        <th>Transaction Amount</th>
-        <th>Transaction Date</th>
+        <th>
+            <h3>Open Accounts </h3>
+        </th>
+        <th></th>
+        <th></th>
     </tr>
-    <c:forEach items="${transactions}" var="transaction">
+    <tr>
+        <th>Account Id</th>
+        <th>Account Type</th>
+        <th>Account Amount</th>
+    </tr>
+    <c:forEach items="${managedAccounts}" var="account">
         <tr>
-            <td>${transaction.id}</td>
-            <td>${transaction.amount}</td>
-            <td>${transaction.createDate}</td>
+            <td>${account.id}</td>
+            <td>${account.accountType}</td>
+            <td>${account.accountAmount}</td>
         </tr>
     </c:forEach>
 </table>

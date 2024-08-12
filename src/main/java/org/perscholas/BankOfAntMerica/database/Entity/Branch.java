@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "branches")
 public class Branch {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -31,8 +32,7 @@ public class Branch {
     private String zipcode;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "manager_id", nullable = false)
-    private User manager;
+    @Column(name = "manager_id", nullable = false)
+    private Integer managerId;
 
 }

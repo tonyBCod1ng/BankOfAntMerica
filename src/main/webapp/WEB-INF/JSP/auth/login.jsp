@@ -14,7 +14,7 @@
         <div class="back"></div>
         <div class="col">
             <form action="/auth/login/loginSubmit" method="post">
-                <h1>Bank Of AntMerica</h1>
+                    <h2 style="font-family:'Arsenal SC'; margin-top:5px;margin-bottom: -4px;font-size: 40px;">Bank Of AntMerica</h2>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group m-4">

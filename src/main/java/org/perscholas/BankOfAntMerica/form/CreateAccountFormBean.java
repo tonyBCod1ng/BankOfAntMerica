@@ -2,6 +2,8 @@ package org.perscholas.BankOfAntMerica.form;
 
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -33,8 +35,10 @@ public class CreateAccountFormBean {
 
     private String phone;
 
+    @Email(regexp = "^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$", message = "Please enter valid Email")
+    private String email;
     private String username;
-
+    @NotEmpty
     private String password;
 
     private String role;

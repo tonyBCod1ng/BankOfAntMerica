@@ -1,4 +1,5 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,19 +8,44 @@
     <title>Bank Of AntMerica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="/public/CSS/global.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/CSS/global.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
-</head>
-<body>
 
+</head>
+<body
+<c:if test="${currentPage == 'searchAccount' || currentPage == 'searchUser'}">
+        style="background-image:url('/public/images/searchAnt.jpg')"
+</c:if>
+<c:if test="${currentPage == 'transfer'}">
+        style="background-image:url('/public/images/tellerAnt.jpg')"
+</c:if>
+>
+<script>
+    let links = document.getElementsByClassName('nav-link');
+    function activate(){
+        for(let x=0; x<links.length;x++){
+
+        }
+    }
+</script>
 <div class="row justify-content-center cols-1">
 
     <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a style="padding-left: 5px;" class="navbar-brand" href="/">Bank Of AntMerica</a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a style="font-family:'Kalnia Glaze';padding-left: 5px;" class="navbar-brand" href="/">Bank Of AntMerica</a>
 
             <div class="navbar-expand" id="navbarSupportedContent">
 
@@ -27,12 +53,19 @@
 
                     <sec:authorize access="hasAuthority('ADMIN')">
                         <li class="nav-item">
-                            <a class="nav-link" href="/account/create-account">Create Account</a>
+
+                                   <a class="nav-link ${currentPage == 'create' ? 'active' : ''}" href="/users/create-account" >Create Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${currentPage == 'searchUser' ? 'active' : ''}" href="/admin/searchTool/users">Search Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${currentPage == 'searchAccount' ? 'active' : ''}" href="/admin/searchTool/accounts">Search Accounts</a>
                         </li>
                     </sec:authorize>
-                    <sec:authorize access="!isAuthenticated()">
+                    <sec:authorize access="hasAuthority('USER')">
                         <li class="nav-item">
-                            <a class="nav-link" href="/auth/login">Sign In</a>
+                            <a class="nav-link ${currentPage == 'transfer' ? 'active' : ''}" href="/">Transfer Funds</a>
                         </li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
@@ -43,7 +76,7 @@
                             </form>
                         </li>
                         <li>
-                            <span class="nav-link">Welcome, <sec:authentication property="name"/>!</span>
+                            <button class="nav-link"><sec:authentication property="name"/></button>
                         </li>
                     </sec:authorize>
                 </ul>
@@ -54,4 +87,4 @@
 </div>
 <div class="container">
 
-<div style="height: 10vh"></div>
+    <div style="height: 10vh"></div>

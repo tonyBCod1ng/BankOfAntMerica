@@ -5,6 +5,7 @@
 
 <section>
     <div class="row justify-content-center cols-1">
+
         <div class="create-back "></div>
         <div class="col p-4 col-10 align-items-center">
             <div class="row justify-content-center text-center">
@@ -85,11 +86,11 @@
                     </div>
                     <sec:authorize access="hasAuthority('ADMIN')">
                         <div class="col col-2 form-check">
-                            <label class="form-check-label" for="role">
-                                Admin:
-                            </label>
                             <input name="role" class="form-check-input" type="checkbox" value="ADMIN" id="role"
                                    <c:if test="${roles.contains('ADMIN')}">checked</c:if> >
+                            <label class="form-radio-label" for="role">
+                                Admin
+                            </label>
                         </div>
                     </sec:authorize>
                 </div>
@@ -162,4 +163,5 @@
         </div>
     </div>
 </section>
+
 <jsp:include page="../Includes/Footer.jsp"/>

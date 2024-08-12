@@ -1,5 +1,6 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -25,6 +27,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -68,8 +71,10 @@ public class AdminController {
     }
 
     @GetMapping("/searchTool/accounts")
-    public ModelAndView searchToolAccounts(@RequestParam(required = false) String term) {
+    public ModelAndView searchToolAccounts(@RequestParam(required = false) String term, Model model) {
         ModelAndView response = new ModelAndView("admin/searchTool");
+        model.addAttribute("currentPage", "searchAccount");
+        response.addObject(model);
         String accountView = "yes";
         response.addObject("accountView", accountView);
         if (term != null) {
@@ -81,8 +86,10 @@ public class AdminController {
     }
 
     @GetMapping("/searchTool/users")
-    public ModelAndView searchToolUsers(@RequestParam(required = false) String term) {
+    public ModelAndView searchToolUsers(@RequestParam(required = false) String term, HttpServletRequest request, Model model) {
         ModelAndView response = new ModelAndView("admin/searchTool");
+        model.addAttribute("currentPage", "searchUser");
+        response.addObject(model);
         List<User> users = userDAO.findAllByCustomTerm(term);
         response.addObject("users", users);
         log.debug(users.toString());
@@ -130,7 +137,7 @@ public class AdminController {
             account.setAccountAmount(formBean.getAccountAmount());
             account.setAccountType(formBean.getAccountType());
             account.setBranchId(user.getHomeBranch());
-            account.setUserId(user.getId());
+            account.setUser(user);
             account.setCreateDate(new Date().toInstant());
             accountDAO.save(account);
         }
@@ -155,6 +162,7 @@ public class AdminController {
     @GetMapping("/create-account")
     public ModelAndView createAccount() {
         ModelAndView response = new ModelAndView("users/create");
+        response.addObject("currentPage", "create");
         List<Branch> branches = branchDAO.findAll();
         response.addObject("branches", branches);
         return response;
@@ -187,7 +195,7 @@ public class AdminController {
                 account.setAccountAmount(form.getAccountAmount());
                 account.setAccountType(form.getAccountType());
                 account.setBranchId(user.getHomeBranch());
-                account.setUserId(user.getId());
+                account.setUser(user);
                 account.setCreateDate(new Date().toInstant());
                 accountDAO.save(account);
             }

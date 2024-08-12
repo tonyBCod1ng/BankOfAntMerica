@@ -1,14 +1,44 @@
-body{
+body {
+    font-family: 'Quantico';
     background-image: url("../../public/images/ant_with_arms_crossed.jpg");
     background-size: cover;
 }
 
 .container{
-    height: 86vh;
+    position: sticky;
+    height: 100vh;
 }
-nav, input{
+
+nav, input, select {
     opacity: 0.9;
 }
-#loginPane{
 
- }
+nav {
+    background-color: rgb(123, 238, 233);
+}
+
+.table {
+    opacity: 0.7;
+}
+
+.back{
+    position: absolute;
+    border-radius: 20px;
+    z-index: -1;
+    background-color: rgb(123, 238, 233);
+    height: 255px;
+    width: 415px;
+    opacity: 0.5;
+}
+.create-back{
+    position: absolute;
+    opacity: 0.5;
+    border-radius: 20px;
+    z-index: -1;
+    background-color: rgb(123, 238, 233);
+    height: 615px;
+    width: 830px;
+}
+
+
+

@@ -1,29 +1,42 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="Includes/Header.jsp"/>
 <section>
-    <div class="row" style="height: 5vh"></div>
-<h1>Bank Of AntMerica</h1>
+    <div class="row justify-content-center text-center" style="height: 5vh"></div>
+    <h1>Transfer Funds</h1>
 
-    <%--<div class="row justify-center">
-        <div class="col col-lg-4 col-md-5">
-            <form action="/auth/login/loginSubmit" method="post">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <form class="form" action="/" method="post" >
+        <div class="row justify-content-center m-4 cols-3">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                <div class="form-group">
-                    <label for="username">Email address</label>
-                    <input name="username" type="email" class="form-control" id="username" aria-describedby="username"
-                           placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Password">
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <div class="col col-4">
+                <select id="sender" name="sender" class="form-select">
+                    <option disabled selected hidden value="">Select Sending Account</option>
+                    <c:forEach items="${accounts}" var="account">
+                        <option value="${account.id}">${account.id}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-2">
+                <input value="" id="transferAmount" name="transferAmount" class="form-control"
+                       type="number"
+                       placeholder="Transfer Amount"
+                       aria-description=" transfer amount input">
+            </div>
+            <div class="col col-4">
+                <select id="receiver" name="receiver" class="form-select">
+                    <option disabled selected hidden value="">Select Receiving Account</option>
+                    <c:forEach items="${accounts}" var="account">
+                        <option
+                                value="${account.id}">${account.id}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
-    </div>--%>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
 </section>
 <jsp:include page="Includes/Footer.jsp"/>
 

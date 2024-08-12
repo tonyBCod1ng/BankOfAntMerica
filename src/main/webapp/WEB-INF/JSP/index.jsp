@@ -1,8 +1,9 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="Includes/Header.jsp"/>
 <section>
-    <div class="row" style="height: 5vh"></div>
+    <div class="row justify-content-center text-center" style="height: 5vh"></div>
     <h1>Transfer Funds</h1>
 
     <form class="form" action="/" method="post" >
@@ -33,7 +34,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 
 </section>
