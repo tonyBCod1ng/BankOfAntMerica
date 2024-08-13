@@ -199,7 +199,7 @@ public class AdminController {
                 account.setCreateDate(new Date().toInstant());
                 accountDAO.save(account);
             }
-            authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
+            authenticatedUserUtils.manualAuthentication(session, form.getEmail(), form.getPassword());
         }
         response.setViewName("redirect:/");
         return response;

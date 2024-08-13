@@ -80,7 +80,7 @@ public class UserController {
             }
             userService.createUser(form);
             userService.assignUserRole(form);
-            authenticatedUserUtils.manualAuthentication(session, form.getUsername(), form.getPassword());
+            authenticatedUserUtils.manualAuthentication(session, form.getEmail(), form.getPassword());
         }
         response.setViewName("redirect:/users/dashboard");
         return response;

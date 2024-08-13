@@ -47,13 +47,13 @@ public class UserService {
         user.setZipcode(form.getZipcode());
         user.setPhone(form.getPhone());
         user.setFirstName(form.getFirstName());
-        user.setEmail(form.getUsername());
+        user.setEmail(form.getEmail());
         user.setHomeBranch(form.getBranch());
         // we are getting in a plain text password because the user entered it into the form
     }
 
     public UserRole assignUserRole(CreateAccountFormBean form) {
-        User user = userDAO.findByEmailIgnoreCase(form.getUsername());
+        User user = userDAO.findByEmailIgnoreCase(form.getEmail());
         String role = form.getRole();
         if(role == null) {
             role = "USER";

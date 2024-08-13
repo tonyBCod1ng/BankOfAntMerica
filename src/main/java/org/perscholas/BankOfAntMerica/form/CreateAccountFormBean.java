@@ -2,10 +2,7 @@ package org.perscholas.BankOfAntMerica.form;
 
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
 
@@ -18,9 +15,11 @@ import java.util.Date;
 public class CreateAccountFormBean {
 
     private Integer id;
-
+   @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "What is your REAL first name?")
+    @NotEmpty(message = "Please add your first name")
     private String firstName;
-
+    @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "What is your REAL last name?")
+    @NotEmpty(message = "Please add your last name")
     private String lastName;
 
     private String addressLine1;
@@ -37,7 +36,13 @@ public class CreateAccountFormBean {
 
     @Email(regexp = "^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$", message = "Please enter valid Email")
     private String email;
-    private String username;
+
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\s:])(\\S){8,16}$",
+            message = "password must contain 1 number (0-9)</br>" +
+            "password must contain 1 uppercase letters </br>" +
+            "password must contain 1 lowercase letters</br>" +
+            "password must contain 1 non-alpha numeric number</br>" +
+            "password is 8-16 characters with no space")
     @NotEmpty(message = "Password cannot be left blank")
     private String password;
 
