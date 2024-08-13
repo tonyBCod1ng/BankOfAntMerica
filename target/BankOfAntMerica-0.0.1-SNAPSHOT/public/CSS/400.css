@@ -1,0 +1,7 @@
+#lookinGlass{
+    height: 50vh;
+    background-image: url("../../public/images/400logo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

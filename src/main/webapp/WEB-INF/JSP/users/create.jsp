@@ -56,8 +56,19 @@
                                placeholder="E-mail"
                                aria-description="email input">
                     </div>
+                    <c:if test="${bindingResult.hasFieldErrors('email')}">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="offset-2 col-4">
+                                <div style="color:red">
+                                    <c:forEach items="${bindingResult.getFieldErrors('email')}" var="error">
+                                        ${error.defaultMessage}<br>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
-                <c:if test="${form == null}">
+                <sec:authorize access="!hasAnyAuthority('IS_AUTHENTICATED_REMEMBERED', 'IS_AUTHENTICATED_ANONYMOUSLY')">
                     <div class="row justify-content-center m-4">
                         <div class="col-6">
                             <input id="password" name="password" class="form-control"
@@ -65,8 +76,19 @@
                                    placeholder="Password"
                                    aria-description="password input">
                         </div>
+                        <c:if test="${bindingResult.hasFieldErrors('password')}">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="offset-2 col-4">
+                                    <div style="color:red">
+                                        <c:forEach items="${bindingResult.getFieldErrors('password')}" var="error">
+                                            ${error.defaultMessage}<br>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
-                </c:if>
+                </sec:authorize>
 
                 <div class="row justify-content-center m-4">
 

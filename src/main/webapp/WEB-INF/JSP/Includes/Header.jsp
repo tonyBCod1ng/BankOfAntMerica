@@ -17,7 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Kalnia+Glaze:wght@100..700&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="/public/CSS/global.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -35,8 +36,9 @@
 >
 <script>
     let links = document.getElementsByClassName('nav-link');
-    function activate(){
-        for(let x=0; x<links.length;x++){
+
+    function activate() {
+        for (let x = 0; x < links.length; x++) {
 
         }
     }
@@ -45,8 +47,13 @@
 
     <div class="col">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a style="font-family:'Kalnia Glaze';padding-left: 5px;" class="navbar-brand" <sec:authorize access="hasAuthority('ADMIN')">href="/admin/dashboard"</sec:authorize>
-               <sec:authorize access="hasAnyAuthority('USER')">href="/users/dashboard"</sec:authorize>>Bank Of AntMerica</a>
+            <a style="font-family:'Kalnia Glaze';padding-left: 5px;" class="navbar-brand"
+               <sec:authorize access="hasAuthority('ADMIN')">href="/admin/dashboard"</sec:authorize>
+               <sec:authorize access="hasAuthority('USER')">href="/users/dashboard"</sec:authorize>
+               <sec:authorize access="!hasAnyAuthority('IS_AUTHENTICATED_REMEMBERED', 'IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_FULLY')">
+                   href="/auth/login"
+            </sec:authorize>
+            >Bank Of AntMerica</a>
 
             <div class="navbar-expand" id="navbarSupportedContent">
 
@@ -55,13 +62,16 @@
                     <sec:authorize access="hasAuthority('ADMIN')">
                         <li class="nav-item">
 
-                                   <a class="nav-link ${currentPage == 'create' ? 'active' : ''}" href="/users/create-account" >Create Account</a>
+                            <a class="nav-link ${currentPage == 'create' ? 'active' : ''}" href="/users/create-account">Create
+                                Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${currentPage == 'searchUser' ? 'active' : ''}" href="/admin/searchTool/users">Search Users</a>
+                            <a class="nav-link ${currentPage == 'searchUser' ? 'active' : ''}"
+                               href="/admin/searchTool/users">Search Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${currentPage == 'searchAccount' ? 'active' : ''}" href="/admin/searchTool/accounts">Search Accounts</a>
+                            <a class="nav-link ${currentPage == 'searchAccount' ? 'active' : ''}"
+                               href="/admin/searchTool/accounts">Search Accounts</a>
                         </li>
                     </sec:authorize>
                     <sec:authorize access="hasAuthority('USER')">

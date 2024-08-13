@@ -38,7 +38,7 @@ public class CreateAccountFormBean {
     @Email(regexp = "^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$", message = "Please enter valid Email")
     private String email;
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Password cannot be left blank")
     private String password;
 
     private String role;

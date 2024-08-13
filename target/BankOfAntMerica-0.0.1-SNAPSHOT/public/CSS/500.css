@@ -1,0 +1,7 @@
+#anthill{
+    height: 50vh;
+    background-image: url("../../public/images/404logo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

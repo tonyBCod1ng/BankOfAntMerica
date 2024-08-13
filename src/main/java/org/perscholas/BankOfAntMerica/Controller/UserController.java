@@ -66,7 +66,8 @@ public class UserController {
             for (ObjectError error : bindingResult.getAllErrors()) {
                 log.debug("Validation error : {} = {}", ((FieldError) error).getField(), error.getDefaultMessage());
             }
-
+            List<Branch> branches = branchDao.findAll();
+            response.addObject("branches", branches);
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
             response.addObject("currentPage", "create");
