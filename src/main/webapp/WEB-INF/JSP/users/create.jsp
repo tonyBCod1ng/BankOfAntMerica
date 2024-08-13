@@ -77,8 +77,12 @@
                                            class="form-control
                                     <c:if test='${bindingResult.hasFieldErrors("password")}'>
                                         is-invalid
+                                    </c:if>
+                                    <c:if test='${!bindingResult.hasFieldErrors("password") && form.password !=null}'>
+                                           is-valid
                                     </c:if>"
                                            type="password"
+                                           value="${form.password}"
                                            placeholder="Password"
                                            aria-description="password input"/>
                                     <c:if test="${bindingResult.hasFieldErrors('password')}">
@@ -89,6 +93,10 @@
                                             </c:forEach>
                                         </div>
 
+                                    </c:if>
+                                    <c:if test="${!bindingResult.hasFieldErrors('password') && form.password != null}">
+                                    <div class=" col-3 valid-feedback ">
+                                        Looks Great! <img style="width: 53px" src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.dribbble.com%2Fusers%2F285475%2Fscreenshots%2F2310943%2Fthumbs-up.gif&f=1&nofb=1&ipt=222da283d26748810818c0bf935606035f9add8474ba8dbd9364928e13eadede&ipo=images'>                                        </div>
                                     </c:if>
                                 </div>
 
