@@ -1,10 +1,16 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../Includes/Header.jsp"/>
+<script>
+    function removePopup(){
+        let target = document.getElementById('error-popup');
+        target.hidden = true;
+    }
+</script>
 <section>
     <div class="row" style="height: 5vh"></div>
     <c:if test="${param['error'] eq ''}">
-        <div class="row pt-5 justify-content-center">
+        <div id="error-popup" onclick="removePopup()" class="row pt-5 justify-content-center">
             <div class="col-6">
                 <div class="alert alert-danger" role="alert">Invalid Username or Password</div>
             </div>

@@ -52,28 +52,29 @@ public class UserService {
         // we are getting in a plain text password because the user entered it into the form
     }
 
-    public UserRole assignUserRole(CreateAccountFormBean form) {
-        User user = userDAO.findByEmailIgnoreCase(form.getEmail());
+    public UserRole assignUserRole(CreateAccountFormBean form, User user) {
+
         String role = form.getRole();
-        if(role == null) {
-            role = "USER";
-        }
-        List<UserRole> usersRole = userRoleDAO.findByUserId(user.getId());
+
             UserRole assignedUserRole = new UserRole();
-        if(usersRole.isEmpty()) {
-            assignedUserRole.setUserId(user.getId());
-            assignedUserRole.setRoleName(role);
-            assignedUserRole.setCreateTime(new Date().toInstant());
-            userRoleDAO.save(assignedUserRole);
-        }
-        for(UserRole userRole : usersRole) {
-            if(userRole.getRoleName().equals(role)) {
-                break;
+                assignedUserRole.setRoleName(role);
+        if(user != null) {
+            List<UserRole> usersRole = userRoleDAO.findByUserId(user.getId());
+            if(usersRole.isEmpty()) {
+                assignedUserRole.setUserId(user.getId());
+                assignedUserRole.setCreateTime(new Date().toInstant());
+                userRoleDAO.save(assignedUserRole);
             }
-            userRole.setRoleName(role);
+            for(UserRole userRole : usersRole) {
+                if(userRole.getRoleName().equals(role)) {
+                    break;
+                }
+                userRole.setRoleName(role);
+            }
+
+
         }
+            return assignedUserRole;
 
-
-        return assignedUserRole;
     }
 }

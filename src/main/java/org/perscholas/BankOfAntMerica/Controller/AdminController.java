@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.perscholas.BankOfAntMerica.Config.YourInteceptor;
 import org.perscholas.BankOfAntMerica.Security.AuthenticatedUserUtils;
 import org.perscholas.BankOfAntMerica.Security.UserDetailsServiceImpl;
 import org.perscholas.BankOfAntMerica.database.DAO.*;
@@ -30,7 +31,8 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/admin")
 public class AdminController {
-
+@Autowired
+    YourInteceptor yourInteceptor;
     @Autowired
     AccountDAO accountDAO;
     @Autowired
@@ -91,7 +93,18 @@ public class AdminController {
         model.addAttribute("currentPage", "searchUser");
         response.addObject(model);
         List<User> users = userDAO.findAllByCustomTerm(term);
-        response.addObject("users", users);
+        List<User> shortenedListUsers = new ArrayList<>(10);
+        Integer count = 10;
+        for(User user : users) {
+            if(count != 0){
+                count--;
+            }
+            if(count == 0){
+                break;
+            }
+            shortenedListUsers.add(user);
+        }
+        response.addObject("users", shortenedListUsers);
         log.debug(users.toString());
         response.addObject("term", term);
         return response;
@@ -128,7 +141,7 @@ public class AdminController {
         }
 
         userService.populateUserObject(formBean, user);
-        userService.assignUserRole(formBean);
+        userService.assignUserRole(formBean, user);
         log.debug(formBean.toString());
         userDAO.save(user);
         if (formBean.getAccountAmount() != null) {
@@ -169,11 +182,10 @@ public class AdminController {
     }
 
     @PostMapping("/create-account")
-    public ModelAndView createAccountSubmit( CreateAccountFormBean form, BindingResult bindingResult, HttpSession session) {
+    public ModelAndView createAccountSubmit( @Valid CreateAccountFormBean form, BindingResult bindingResult, HttpSession session) {
         ModelAndView response = new ModelAndView();
-
-        // homework if you want - check to make sure the email does not already exist
-        // this is a great case the custom annotation that we made
+List<Branch> branches = branchDAO.findAll();
+response.addObject("branches", branches);
 
         if (bindingResult.hasErrors()) {
             for (ObjectError error : bindingResult.getAllErrors()) {
@@ -182,13 +194,16 @@ public class AdminController {
 
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
+            response.addObject("currentPage", "create");
+            response.setViewName("users/create");
+            return response;
         } else {
             // there were no errors so we can create the new user in the database
             if (form.getRole() == null) {
                 form.setRole("USER");
             }
             User user = userService.createUser(form);
-            userService.assignUserRole(form);
+            userService.assignUserRole(form, user);
             if (form.getAccountAmount() != null) {
                 Account account = new Account();
 
@@ -199,9 +214,9 @@ public class AdminController {
                 account.setCreateDate(new Date().toInstant());
                 accountDAO.save(account);
             }
-            authenticatedUserUtils.manualAuthentication(session, form.getEmail(), form.getPassword());
+            //authenticatedUserUtils.manualAuthentication(session, form.getEmail(), form.getPassword());
         }
-        response.setViewName("redirect:/");
+        response.setViewName("redirect:/admin/dashboard");
         return response;
     }
 }

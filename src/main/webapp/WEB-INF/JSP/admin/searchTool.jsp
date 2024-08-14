@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<jsp:include page="../Includes/Header.jsp"></jsp:include>
+<jsp:include page="../Includes/Header.jsp"/>
 
-<div class="container">
     <section>
 
         <div class="row">
@@ -71,6 +70,6 @@
 
         </div>
     </section>
-</div>
 
-<jsp:include page="../Includes/Footer.jsp"></jsp:include>
+
+<jsp:include page="../Includes/Footer.jsp"/>

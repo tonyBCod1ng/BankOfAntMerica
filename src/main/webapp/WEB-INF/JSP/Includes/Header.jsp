@@ -43,7 +43,7 @@
         }
     }
 </script>
-<div class="row justify-content-center cols-1">
+<div class="row justify-content-center cols-1 sticky">
 
     <div class="col">
         <nav class="navbar navbar-expand-lg navbar-light">

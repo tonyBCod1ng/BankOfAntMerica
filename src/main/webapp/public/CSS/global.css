@@ -2,7 +2,7 @@ body {
     font-family: 'Quantico';
     background-image: url("../../public/images/ant_with_arms_crossed.jpg");
     background-size: cover;
-    height: 900px;
+    height: 760px;
 }
 
 .container{
@@ -20,6 +20,7 @@ nav {
 
 .table {
     opacity: 0.7;
+    object-fit: contain;
 }
 
 .back{
@@ -37,17 +38,21 @@ nav {
     opacity: 0.9;
     border-radius: 20px;
     z-index: -1;
+    margin-left: 55px;
     background-color: rgb(123, 238, 233);
-    height: 95%;
-    width: 75%;
+    height: 93%;
+    width: 65%;
 
 }
 
 .create-container{
-border: black dot-dash 3px;
     object-position: center;
     height: 100vh;
 }
-
+.sticky{
+    position: fixed;
+    z-index: 1;
+    width: 120%;
+}
 
 

@@ -7,19 +7,27 @@
     </div>
 </section>
 
-<table class="table">
-    <tr>
-        <th>Transaction Id</th>
-        <th>Account Id</th>
-        <th>Transaction Amount</th>
-        <th>Transaction Date</th>
-    </tr>
-    <tr>
-        <td>${transaction.id}</td>
-        <td>${transaction.accountId}</td>
-        <td>${transaction.amount}</td>
-        <td>${transaction.createDate}</td>
-    </tr>
-</table>
+<div class="row justify-content-center">
+    <div class="col col-4">
+        <table class="table table-striped">
+            <tr>
+                <th>Transaction Id:</th>
+                <td>${transaction.id}</td>
+            </tr>
+            <tr>
+                <th>Account Id:</th>
+                <td>${transaction.accountId}</td>
+            </tr>
+            <tr>
+                <th>Amount:</th>
+                <td>${transaction.amount}</td>
+            </tr>
+            <tr>
+                <th>Create Date:</th>
+                <td>${transaction.createDate}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 <jsp:include page="../Includes/Footer.jsp"/>

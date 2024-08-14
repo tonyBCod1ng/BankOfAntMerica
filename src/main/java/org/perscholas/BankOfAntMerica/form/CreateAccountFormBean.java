@@ -15,11 +15,11 @@ import java.util.Date;
 public class CreateAccountFormBean {
 
     private Integer id;
-   @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "What is your REAL first name?")
-    @NotEmpty(message = "Please add your first name")
+   @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "Enter a First Name")
+
     private String firstName;
-    @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "What is your REAL last name?")
-    @NotEmpty(message = "Please add your last name")
+    @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$", message = "Enter a Last Name")
+
     private String lastName;
 
     private String addressLine1;
@@ -38,12 +38,8 @@ public class CreateAccountFormBean {
     private String email;
 
     @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\s:])(\\S){8,16}$",
-            message = "password must contain 1 number (0-9)</br>" +
-            "password must contain 1 uppercase letters </br>" +
-            "password must contain 1 lowercase letters</br>" +
-            "password must contain 1 non-alpha numeric number</br>" +
-            "password is 8-16 characters with no space")
-    @NotEmpty(message = "Password cannot be left blank")
+            message = "password must contain 1 number (0-9), 1 non-alpha character, 1 uppercase and lowercase letter</br>" +
+            "and be between 8-16 characters long with no spaces")
     private String password;
 
     private String role;

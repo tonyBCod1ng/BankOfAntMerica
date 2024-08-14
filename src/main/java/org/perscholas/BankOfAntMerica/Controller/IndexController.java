@@ -1,6 +1,7 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.perscholas.BankOfAntMerica.Security.AuthenticatedUserUtils;
 import org.perscholas.BankOfAntMerica.database.DAO.AccountDAO;
@@ -16,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,44 +60,60 @@ class IndexController {
         return response;
     }
     @PostMapping("/")
-    ModelAndView indexPost(CreateTransferBean formBean, HttpServletRequest request){
-
-        User currentUser = authenticatedUserUtils.getCurrentUserObject();
-        log.debug(formBean.toString());
+    ModelAndView indexPost(@Valid CreateTransferBean formBean, BindingResult bindingResult, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("transfer");
-
-        Account sender = accountDAO.findAccountById(formBean.getSender());
-        Integer senderBalance = sender.getAccountAmount();
-        Account receiver = accountDAO.findAccountById(formBean.getReceiver());
-        Integer receiverBalance = receiver.getAccountAmount();
-        Integer amount = formBean.getTransferAmount();
-        AccountTransaction senderTransaction = new AccountTransaction();
-        AccountTransaction receiverTransaction = new AccountTransaction();
-
-        //set up senders transaction
-        if (sender.getId() != receiver.getId()) {
-            if(senderBalance > amount) {
-                sender.setAccountAmount((senderBalance - amount));
-                accountDAO.save(sender);
-                senderTransaction.setAccountId(sender.getId());
-                senderTransaction.setAmount(-amount);
-                senderTransaction.setBranchId(currentUser.getHomeBranch());
-                senderTransaction.setCreateDate(new Date().toInstant());
-                senderTransaction.setLastChanged(new Date().toInstant());
+        User currentUser = authenticatedUserUtils.getCurrentUserObject();
+        List<Account> accounts = accountDAO.findAccountsByUserId(currentUser.getId());
+        response.addObject("accounts", accounts);
+        log.debug(formBean.toString());
+        if (bindingResult.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                log.debug("Validation error : {} = {}", ((FieldError) error).getField(), error.getDefaultMessage());
             }
-            //set up receivers transaction
-            receiver.setAccountAmount(receiverBalance + amount);
-            accountDAO.save(receiver);
-            receiverTransaction.setAccountId(receiver.getId());
-            receiverTransaction.setAmount(amount);
-            receiverTransaction.setBranchId(currentUser.getHomeBranch());
-            receiverTransaction.setCreateDate(new Date().toInstant());
-            receiverTransaction.setLastChanged(new Date().toInstant());
 
-            accountTransactionDAO.save(senderTransaction);
-            accountTransactionDAO.save(receiverTransaction);
+            response.addObject("bindingResult", bindingResult);
+            response.addObject("form", formBean);
+            response.addObject("currentPage", "transfer");
+            response.setViewName("index");
+            return response;
+        } else {
+            Account sender = accountDAO.findAccountById(formBean.getSender());
+            Integer senderBalance = sender.getAccountAmount();
+            Account receiver = accountDAO.findAccountById(formBean.getReceiver());
+            Integer receiverBalance = receiver.getAccountAmount();
+            Integer amount = formBean.getTransferAmount();
+            AccountTransaction senderTransaction = new AccountTransaction();
+            AccountTransaction receiverTransaction = new AccountTransaction();
+
+            //set up senders transaction
+            if (sender.getId() != receiver.getId()) {
+                if (senderBalance > amount) {
+                    sender.setAccountAmount((senderBalance - amount));
+                    accountDAO.save(sender);
+                    senderTransaction.setAccountId(sender.getId());
+                    senderTransaction.setAmount(-amount);
+                    senderTransaction.setBranchId(currentUser.getHomeBranch());
+                    senderTransaction.setCreateDate(new Date().toInstant());
+                    senderTransaction.setLastChanged(new Date().toInstant());
+                }
+                //set up receivers transaction
+                receiver.setAccountAmount(receiverBalance + amount);
+                accountDAO.save(receiver);
+                receiverTransaction.setAccountId(receiver.getId());
+                receiverTransaction.setAmount(amount);
+                receiverTransaction.setBranchId(currentUser.getHomeBranch());
+                receiverTransaction.setCreateDate(new Date().toInstant());
+                receiverTransaction.setLastChanged(new Date().toInstant());
+
+              senderTransaction =  accountTransactionDAO.save(senderTransaction);
+               receiverTransaction = accountTransactionDAO.save(receiverTransaction);
+               response.addObject("senderTransaction", senderTransaction);
+               response.addObject("receiverTransaction", receiverTransaction);
+            }
+            response.addObject("form", formBean);
+            response.addObject("currentPage", "transfer");
+            response.setViewName("index");
+            return response;
         }
-        response.setViewName("redirect:/");
-        return response;
     }
 }
