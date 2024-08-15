@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="row justify-content-center text-center">
-    <h2>Transactions</h2>
+    <h2>Recent Transactions</h2>
 </div>
 <div class="row justify-content-center">
     <div class="col col-10">
@@ -40,7 +40,7 @@
             <c:forEach items="${accountTransactions}" var="transaction">
                 <tr>
                     <td>${transaction.id}</td>
-                    <td>${transaction.amount}</td>
+                    <td>$${transaction.amount}.00</td>
                     <td>${transaction.accountId}</td>
                 </tr>
             </c:forEach>

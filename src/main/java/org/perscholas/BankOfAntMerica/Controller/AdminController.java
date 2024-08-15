@@ -64,7 +64,16 @@ public class AdminController {
 
 
         List<AccountTransaction> accountTransactions = accountTransactionDAO.findByBranchId(branch.getId());
-        response.addObject("accountTransactions", accountTransactions);
+        List<AccountTransaction> shortenedListAccounts = new ArrayList<>(5);
+        int count = 6;
+        for(AccountTransaction transaction : accountTransactions) {
+            count--;
+            if(count == 0){
+                break;
+            }
+            shortenedListAccounts.add(transaction);
+        }
+        response.addObject("accountTransactions", shortenedListAccounts);
 
         List<Account> managedAccounts = accountDAO.findByBranchId(branch.getId());
         response.addObject("managedAccounts", managedAccounts);

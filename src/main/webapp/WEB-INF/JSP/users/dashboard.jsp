@@ -13,9 +13,9 @@
 
         <div class="col col-6">
             <table class="table table-info table-striped table-hover bg-info">
-                <thead>
-                <tr>
-                    <th>
+                <thead >
+                <tr >
+                    <th >
                         <h3>Open Accounts </h3>
                     </th>
                     <th></th>
