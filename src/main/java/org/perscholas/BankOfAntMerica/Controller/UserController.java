@@ -80,9 +80,7 @@ public class UserController {
             return response;
         } else {
             // there were no errors so we can create the new user in the database
-            if (form.getRole() == null) {
-                form.setRole("USER");
-            }
+
            User user = userService.createUser(form);
             userService.assignUserRole(form, user);
             authenticatedUserUtils.manualAuthentication(session, form.getEmail(), form.getPassword());

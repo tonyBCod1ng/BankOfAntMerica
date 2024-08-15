@@ -78,7 +78,8 @@
                                     Looks Great! <img style="width: 53px" src="../../public/images/thumbsUp.png"/></div>
                             </c:if>
                         </div>
-                        <c:if test="${form == null || user == null}">
+                        <c:if test="${form == null || currentPage != 'edit'}">
+
                             <div class="col-4">
                                 <input id="password" name="password"
                                        class="form-control
@@ -106,10 +107,12 @@
                                 </c:if>
                                 <c:if test="${!bindingResult.hasFieldErrors('password') && form.password != null}">
                                     <div class=" col-3 valid-feedback ">
-                                        Passwordification Complete! <img style="width: 53px" src="../../public/images/thumbsUp.png"/>
+                                        Passwordification Complete! <img style="width: 53px"
+                                                                         src="../../public/images/thumbsUp.png"/>
                                     </div>
                                 </c:if>
                             </div>
+                            </se>
                         </c:if>
 
                     </div>
@@ -230,10 +233,50 @@
                         <div class="row justify-content-center text-center align-items-center m-4 cols-2">
                             <h5>Banking</h5>
                             <div class="col-2">
-                                <input placeholder="Account Type" id="account-type" name="accountType"
-                                       class="form-control"
-                                       type="text"
-                                       aria-description="account type input">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col">
+                                        <label for="debit" class="form-label">Debit</label>
+                                    </div>
+                                    <div class="col">
+                                        <input
+                                                id="debit"
+                                                name="accountType"
+                                                class="form-check"
+                                                type="radio"
+                                                value="Debit"
+                                                aria-description="account type input">
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col">
+                                        <label for="credit" class="form-label">Credit</label>
+                                    </div>
+                                    <div class="col">
+                                        <input
+                                                id="credit"
+                                                name="accountType"
+                                                class="form-check"
+                                                type="radio"
+                                                value="CREDIT"
+                                                aria-description="account type input">
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col">
+                                        <label for="savings" class="form-label">Savings</label>
+                                    </div>
+                                    <div class="col">
+                                        <input
+                                                id="savings"
+                                                name="accountType"
+                                                class="form-check"
+                                                type="radio"
+                                                value="SAVINGS"
+                                                aria-description="account type input">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-2">
                                 <input placeholder="Initial Amount" value="" id="initial-amount"

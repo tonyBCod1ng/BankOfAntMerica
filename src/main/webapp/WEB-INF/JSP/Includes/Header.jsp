@@ -1,7 +1,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
-<html lang="en">
+<html  lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +27,7 @@
 
 </head>
 <body
+
 <c:if test="${currentPage == 'searchAccount' || currentPage == 'searchUser'}">
         style="background-image:url('/public/images/searchAnt.jpg')"
 </c:if>
@@ -34,19 +35,11 @@
         style="background-image:url('/public/images/tellerAnt.jpg')"
 </c:if>
 >
-<script>
-    let links = document.getElementsByClassName('nav-link');
 
-    function activate() {
-        for (let x = 0; x < links.length; x++) {
-
-        }
-    }
-</script>
-<div class="row justify-content-center cols-1 sticky">
+<div  class="row justify-content-center cols-1 sticky">
 
     <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav  class="navbar navbar-expand-lg navbar-light">
             <a style="font-family:'Kalnia Glaze';padding-left: 5px;" class="navbar-brand"
                <sec:authorize access="hasAuthority('ADMIN')">href="/admin/dashboard"</sec:authorize>
                <sec:authorize access="hasAuthority('USER')">href="/users/dashboard"</sec:authorize>

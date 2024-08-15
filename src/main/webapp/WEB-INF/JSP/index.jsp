@@ -36,7 +36,7 @@
                         <option disabled selected hidden value="-1">Select Sending Account</option>
                         <c:forEach items="${accounts}" var="account">
 
-                        <option <c:if test="${form.sender == account.id}">selected</c:if> value="${account.id}">${account.id}</option>
+                        <option <c:if test="${form.sender == account.id}">selected</c:if> value="${account.id}">${account.accountType} $${account.accountAmount}.00</option>
                         </c:forEach>
                     </select>
                     <c:if test="${bindingResult.hasFieldErrors('sender')}">
@@ -82,7 +82,7 @@
                                     </c:if>">
                         <option disabled selected hidden value="">Select Receiving Account</option>
                         <c:forEach items="${accounts}" var="account">
-                            <option <c:if test="${form.receiver == account.id}">selected</c:if> value="${account.id}">${account.id}</option>
+                            <option <c:if test="${form.receiver == account.id}">selected</c:if> value="${account.id}">${account.accountType} $${account.accountAmount}.00</option>
 
                         </c:forEach>
                     </select>

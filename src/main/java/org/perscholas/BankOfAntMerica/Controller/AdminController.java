@@ -81,7 +81,16 @@ public class AdminController {
         response.addObject("accountView", accountView);
         if (term != null) {
             List<Account> searchedAccount = accountDAO.findAllByCustomerTerm(term);
-            response.addObject("foundAccounts", searchedAccount);
+            List<Account> shortenedListAccounts = new ArrayList<>(10);
+            int count = 10;
+            for(Account user : searchedAccount) {
+                count--;
+                if(count == 0){
+                    break;
+                }
+                shortenedListAccounts.add(user);
+            }
+            response.addObject("foundAccounts", shortenedListAccounts);
             response.addObject("term", term);
         }
         return response;
@@ -128,6 +137,7 @@ public class AdminController {
         response.addObject("branches", branches);
         response.addObject("form", user);
         response.addObject("homeBranch", branch);
+        response.addObject("currentPage", "edit");
         response.addObject("roles", userRoleNames);
         return response;
     }
@@ -141,9 +151,10 @@ public class AdminController {
         }
 
         userService.populateUserObject(formBean, user);
+
         userService.assignUserRole(formBean, user);
         log.debug(formBean.toString());
-        userDAO.save(user);
+       user = userDAO.save(user);
         if (formBean.getAccountAmount() != null) {
             Account account = new Account();
 
@@ -154,7 +165,7 @@ public class AdminController {
             account.setCreateDate(new Date().toInstant());
             accountDAO.save(account);
         }
-
+response.addObject("currentPage", "edit");
         response.setViewName("redirect:/admin/dashboard");
         return response;
     }

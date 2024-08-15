@@ -54,8 +54,10 @@ public class UserService {
 
     public UserRole assignUserRole(CreateAccountFormBean form, User user) {
 
+        if(form.getRole() == null){
+            form.setRole("USER");
+        }
         String role = form.getRole();
-
             UserRole assignedUserRole = new UserRole();
                 assignedUserRole.setRoleName(role);
         if(user != null) {

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserDAO extends JpaRepository<User, Integer> {
-    @Query("select u from User u where concat(u.email, '', u.id) like concat('%', :term, '%') ")
+    @Query("select u from User u where concat(u.email, '', u.id, '',lower(u.lastName) , lower(u.firstName)) like concat('%', :term, '%') ")
     List<User> findAllByCustomTerm(String term);
 
     User findByEmailIgnoreCase(String email);

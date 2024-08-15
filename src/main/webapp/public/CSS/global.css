@@ -1,11 +1,23 @@
+/** Safari */
+
+
 body {
     font-family: 'Quantico';
     background-image: url("../../public/images/ant_with_arms_crossed.jpg");
     background-size: cover;
-    height: 760px;
+    height: 92vh;
 }
 
-.container{
+/* Safari 7.1+ */
+
+
+@supports (-webkit-touch-callout: none)  {
+
+    height: 766px;
+
+}
+
+.container {
 
     height: 100%;
 }
@@ -23,7 +35,7 @@ nav {
     object-fit: contain;
 }
 
-.back{
+.back {
     position: absolute;
     border-radius: 20px;
     z-index: -1;
@@ -32,7 +44,8 @@ nav {
     width: 415px;
     opacity: 0.5;
 }
-.create-back{
+
+.create-back {
     position: absolute;
     object-fit: contain;
     opacity: 0.9;
@@ -45,11 +58,12 @@ nav {
 
 }
 
-.create-container{
+.create-container {
     object-position: center;
     height: 100vh;
 }
-.sticky{
+
+.sticky {
     position: fixed;
     z-index: 1;
     width: 120%;
