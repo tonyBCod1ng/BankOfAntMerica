@@ -12,6 +12,15 @@ BankOfAntMerica is a Spring Boot application that simulates banking operations. 
   - Monitor transaction history
 - User Authentication and Authorization (using Spring Security)
 
+### Screenshots
+
+#### Home Page
+![Home Page](images/home_page.png)
+#### Account Creation
+![Account Creation](images/account_creation.png)
+#### Transaction History
+![Transaction History](images/transaction_history.png)
+
 ## Technologies Used
 - Java (Oracle OpenJDK 21.0.2 - aarch64)
 - Spring Boot
