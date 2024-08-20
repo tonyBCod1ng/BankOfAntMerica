@@ -54,10 +54,12 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dashboard")
-    public ModelAndView dashboard() {
+    public ModelAndView dashboard(HttpServletRequest request) {
 
 
         ModelAndView response = new ModelAndView("admin/dashboard");
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         User user = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("user", user);
         Branch branch = branchDAO.findBranchById(user.getHomeBranch());
@@ -82,12 +84,14 @@ public class AdminController {
     }
 
     @GetMapping("/searchTool/accounts")
-    public ModelAndView searchToolAccounts(@RequestParam(required = false) String term, Model model) {
+    public ModelAndView searchToolAccounts(@RequestParam(required = false) String term, Model model, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("admin/searchTool");
         model.addAttribute("currentPage", "searchAccount");
         response.addObject(model);
         String accountView = "yes";
         response.addObject("accountView", accountView);
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         if (term != null) {
             List<Account> searchedAccount = accountDAO.findAllByCustomerTerm(term);
             List<Account> shortenedListAccounts = new ArrayList<>(10);
@@ -110,6 +114,8 @@ public class AdminController {
         ModelAndView response = new ModelAndView("admin/searchTool");
         model.addAttribute("currentPage", "searchUser");
         response.addObject(model);
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         List<User> users = userDAO.findAllByCustomTerm(term);
         List<User> shortenedListUsers = new ArrayList<>(10);
         Integer count = 10;

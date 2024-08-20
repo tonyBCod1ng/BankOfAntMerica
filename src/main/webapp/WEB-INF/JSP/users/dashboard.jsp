@@ -1,3 +1,4 @@
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../Includes/Header.jsp"/>
 <section>
@@ -15,7 +16,7 @@
             <table class="table table-info table-striped table-hover bg-info">
                 <thead >
                 <tr >
-                    <th >
+                    <th>
                         <h3>Open Accounts </h3>
                     </th>
                     <th></th>
@@ -32,7 +33,7 @@
                     <tr onclick="window.location.assign('http://localhost:8080/users/account/${account.id}')">
                         <td>${account.id}</td>
                         <td>${account.accountType}</td>
-                        <td>$${account.accountAmount}.00</td>
+                        <td><fmt:formatNumber type="currency" >${account.accountAmount}</fmt:formatNumber></td>
                     </tr>
                 </c:forEach>
                 </tbody>

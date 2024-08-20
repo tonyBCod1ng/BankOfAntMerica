@@ -8,17 +8,8 @@ body {
     height: 92vh;
 }
 
-/* Safari 7.1+ */
-
-
-@supports (-webkit-touch-callout: none)  {
-
-    height: 766px;
-
-}
 
 .container {
-
     height: 100%;
 }
 

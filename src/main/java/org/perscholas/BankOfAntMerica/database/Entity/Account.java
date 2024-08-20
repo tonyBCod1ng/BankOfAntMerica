@@ -30,8 +30,8 @@ public class Account {
     private User user;
 
     @NotNull
-    @Column(name = "account_amount", nullable = false)
-    private Integer accountAmount;
+    @Column(name = "account_amount", nullable = false, columnDefinition = "DECIMAL", precision = 2)
+    private Double accountAmount;
 
     @Column(name = "last_edited")
     private Instant lastEdited;

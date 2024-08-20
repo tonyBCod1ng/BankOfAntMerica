@@ -16,5 +16,5 @@ public class CreateTransferBean {
     @NotNull(message = "Select the Receiving Account")
     Integer receiver;
     @NotNull(message = "Select Transfer Amount ")
-    Integer transferAmount;
+    Double transferAmount;
 }

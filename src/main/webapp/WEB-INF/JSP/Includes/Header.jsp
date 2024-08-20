@@ -1,7 +1,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
-<html  lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,26 +26,43 @@
 
 
 </head>
+
 <body
 
-<c:if test="${currentPage == 'searchAccount' || currentPage == 'searchUser'}">
-        style="background-image:url('/public/images/searchAnt.jpg')"
-</c:if>
-<c:if test="${currentPage == 'transfer'}">
-        style="background-image:url('/public/images/tellerAnt.jpg')"
-</c:if>
+<c:choose>
+<c:when test="${currentPage == 'searchAccount' || currentPage == 'searchUser'}">
+    style="background-image:url('/public/images/searchAnt.jpg');
+    <c:if test="${isSafari}">
+        height: 92.5vh;
+    </c:if>"
+</c:when>
+    <c:when test="${currentPage == 'transfer'}">
+        style="background-image:url('/public/images/tellerAnt.jpg');
+        <c:if test="${isSafari}">
+            height: 92.5vh;
+
+        </c:if>
+        "
+    </c:when>
+        <c:otherwise>
+        style="height: 92.5vh;"
+</c:otherwise>
+</c:choose>
+
+
 >
 
-<div  class="row justify-content-center cols-1 sticky">
+<div class="row justify-content-center cols-1 sticky">
 
     <div class="col">
-        <nav  class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a style="font-family:'Kalnia Glaze';padding-left: 5px;" class="navbar-brand"
                <sec:authorize access="hasAuthority('ADMIN')">href="/admin/dashboard"</sec:authorize>
                <sec:authorize access="hasAuthority('USER')">href="/users/dashboard"</sec:authorize>
-               <sec:authorize access="!hasAnyAuthority('IS_AUTHENTICATED_REMEMBERED', 'IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_FULLY')">
-                   href="/auth/login"
-            </sec:authorize>
+                    <sec:authorize
+                            access="!hasAnyAuthority('IS_AUTHENTICATED_REMEMBERED', 'IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_FULLY')">
+                        href="/auth/login"
+                    </sec:authorize>
             >Bank Of AntMerica</a>
 
             <div class="navbar-expand" id="navbarSupportedContent">

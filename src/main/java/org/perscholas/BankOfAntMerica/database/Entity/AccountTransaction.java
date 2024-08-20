@@ -22,8 +22,8 @@ public class AccountTransaction {
     private Integer accountId;
 
     @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+    @Column(name = "amount", nullable = false, columnDefinition = "DECIMAL", precision = 2)
+    private Double amount;
 
     @Column(name = "create_date")
     private Instant createDate;

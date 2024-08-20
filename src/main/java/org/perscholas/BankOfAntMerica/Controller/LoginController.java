@@ -1,6 +1,7 @@
 package org.perscholas.BankOfAntMerica.Controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import org.perscholas.BankOfAntMerica.database.DAO.AccountTransactionDAO;
 import org.perscholas.BankOfAntMerica.database.DAO.BranchDAO;
 import org.perscholas.BankOfAntMerica.database.Entity.Branch;
 import org.perscholas.BankOfAntMerica.database.Entity.User;
+import org.perscholas.BankOfAntMerica.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/auth")
 public class LoginController {
     @Autowired
+    UserService userService;
+    @Autowired
     private AuthenticatedUserUtils authenticatedUserUtils;
     @Autowired
     private BranchDAO branchDAO;
@@ -34,8 +38,10 @@ public class LoginController {
     private AccountTransactionDAO accountTransactionDAO;
 
     @GetMapping("/login")
-    ModelAndView index(@RequestParam(required = false) String error) {
+    ModelAndView index(@RequestParam(required = false) String error, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("auth/login");
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         return response;
     }
     @PostMapping("/login")

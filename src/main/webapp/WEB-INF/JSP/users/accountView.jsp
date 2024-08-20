@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="../Includes/Header.jsp"></jsp:include>
 
@@ -16,7 +17,7 @@
             </tr>
             <tr>
                 <th>Account Balance</th>
-                <td>$${account.accountAmount}.00</td>
+                <td><fmt:formatNumber type="currency">${account.accountAmount}</fmt:formatNumber> </td>
             </tr>
         </table>
     </div>
@@ -35,7 +36,7 @@
             <c:forEach items="${transactions}" var="transaction">
                 <tr>
                     <td>${transaction.createDate}</td>
-                    <td>$${transaction.amount}.00</td>
+                    <td><fmt:formatNumber type="currency">${transaction.amount}</fmt:formatNumber></td>
                 </tr>
             </c:forEach>
         </table>

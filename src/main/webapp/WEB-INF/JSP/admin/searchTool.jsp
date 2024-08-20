@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <jsp:include page="../Includes/Header.jsp"/>
@@ -48,7 +49,7 @@
                     <tr>
                         <td>${account.id}</td>
                         <td>${account.user.id}</td>
-                        <td>${account.accountAmount}</td>
+                        <td><fmt:formatNumber type="currency">${account.accountAmount}</fmt:formatNumber> </td>
                         <td>${account.branchId}</td>
                     </tr>
 

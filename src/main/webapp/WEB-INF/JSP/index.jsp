@@ -1,6 +1,6 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="Includes/Header.jsp"/>
 <script>
     function removePopup(){
@@ -12,7 +12,7 @@
     <c:if test="${!bindingResult.hasErrors() && form != null}">
         <div id="transfer-popup" onclick="removePopup()" = none" class="row pt-5 justify-content-center" style="opacity: 0.8">
             <div class="col-6">
-                <div class="alert alert-success text-success" role="alert">Transfer Successful: Transferred $${senderTransaction.amount * -1} from Account Id ${senderTransaction.accountId} to Account Id:${receiverTransaction.accountId} on ${senderTransaction.createDate}</div>
+                <div class="alert alert-success text-success" role="alert">Transfer Successful: Transferred <fmt:formatNumber type="currency">${senderTransaction.amount * -1}</fmt:formatNumber>  from Account Id ${senderTransaction.accountId} to Account Id:${receiverTransaction.accountId} on ${senderTransaction.createDate}</div>
             </div>
         </div>
     </c:if>
@@ -36,7 +36,7 @@
                         <option disabled selected hidden value="-1">Select Sending Account</option>
                         <c:forEach items="${accounts}" var="account">
 
-                        <option <c:if test="${form.sender == account.id}">selected</c:if> value="${account.id}">${account.accountType} $${account.accountAmount}.00</option>
+                        <option <c:if test="${form.sender == account.id}">selected</c:if> value="${account.id}">${account.accountType} <fmt:formatNumber type="currency">${account.accountAmount}</fmt:formatNumber></option>
                         </c:forEach>
                     </select>
                     <c:if test="${bindingResult.hasFieldErrors('sender')}">
@@ -50,7 +50,8 @@
                     </c:if>
                 </div>
                 <div class="col-2">
-                    <input value="${form.transferAmount}" id="transferAmount" name="transferAmount"
+
+                    <input value="${form.transferAmount}" min="0.00" max="10000.00" step="0.01" id="transferAmount" name="transferAmount"
                            class="form-control
                            <c:if test='${bindingResult.hasFieldErrors("transferAmount")}'>
                                     is-invalid
@@ -82,7 +83,7 @@
                                     </c:if>">
                         <option disabled selected hidden value="">Select Receiving Account</option>
                         <c:forEach items="${accounts}" var="account">
-                            <option <c:if test="${form.receiver == account.id}">selected</c:if> value="${account.id}">${account.accountType} $${account.accountAmount}.00</option>
+                            <option <c:if test="${form.receiver == account.id}">selected</c:if> value="${account.id}">${account.accountType} <fmt:formatNumber type="currency">${account.accountAmount}</fmt:formatNumber> </option>
 
                         </c:forEach>
                     </select>

@@ -50,7 +50,7 @@ public class CreateAccountFormBean {
 
     private String accountType;
 
-    private Integer accountAmount;
+    private Double accountAmount;
 
     private Instant lastEdited;
 

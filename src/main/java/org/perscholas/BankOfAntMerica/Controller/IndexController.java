@@ -13,6 +13,7 @@ import org.perscholas.BankOfAntMerica.database.Entity.AccountTransaction;
 import org.perscholas.BankOfAntMerica.database.Entity.Branch;
 import org.perscholas.BankOfAntMerica.database.Entity.User;
 import org.perscholas.BankOfAntMerica.form.CreateTransferBean;
+import org.perscholas.BankOfAntMerica.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,8 @@ class IndexController {
     private AccountTransactionDAO accountTransactionDAO;
     @Autowired
     private AccountDAO accountDAO;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/")
     ModelAndView index(HttpServletRequest request, Model model){
@@ -52,7 +55,8 @@ class IndexController {
         model.addAttribute("currentPage", "transfer");
         response.addObject(model);
         String url = request.getRequestURI();
-
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         User user = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("user", user);
         List<Account> accounts = accountDAO.findAccountsByUserId(user.getId());
@@ -62,6 +66,8 @@ class IndexController {
     @PostMapping("/")
     ModelAndView indexPost(@Valid CreateTransferBean formBean, BindingResult bindingResult, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("transfer");
+        boolean isSafari = userService.isSafari(request);
+        response.addObject("isSafari", isSafari);
         User currentUser = authenticatedUserUtils.getCurrentUserObject();
         List<Account> accounts = accountDAO.findAccountsByUserId(currentUser.getId());
         response.addObject("accounts", accounts);
@@ -78,10 +84,10 @@ class IndexController {
             return response;
         } else {
             Account sender = accountDAO.findAccountById(formBean.getSender());
-            Integer senderBalance = sender.getAccountAmount();
+            Double senderBalance = sender.getAccountAmount();
             Account receiver = accountDAO.findAccountById(formBean.getReceiver());
-            Integer receiverBalance = receiver.getAccountAmount();
-            Integer amount = formBean.getTransferAmount();
+            Double receiverBalance = receiver.getAccountAmount();
+            Double amount = formBean.getTransferAmount();
             AccountTransaction senderTransaction = new AccountTransaction();
             AccountTransaction receiverTransaction = new AccountTransaction();
 
