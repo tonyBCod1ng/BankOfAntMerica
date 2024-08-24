@@ -55,8 +55,7 @@ class IndexController {
         model.addAttribute("currentPage", "transfer");
         response.addObject(model);
         String url = request.getRequestURI();
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         User user = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("user", user);
         List<Account> accounts = accountDAO.findAccountsByUserId(user.getId());
@@ -66,8 +65,7 @@ class IndexController {
     @PostMapping("/")
     ModelAndView indexPost(@Valid CreateTransferBean formBean, BindingResult bindingResult, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("transfer");
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         User currentUser = authenticatedUserUtils.getCurrentUserObject();
         List<Account> accounts = accountDAO.findAccountsByUserId(currentUser.getId());
         response.addObject("accounts", accounts);

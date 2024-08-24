@@ -80,17 +80,5 @@ public class UserService {
             return assignedUserRole;
 
     }
-    public boolean isSafari(HttpServletRequest request) {
-        String userAgent = request.getHeader("User-Agent");
-        //log.debug(userAgent);
-        if(userAgent.contains("Safari/605.1.15")){
-            if(!userAgent.contains("Ddg/17.5")){
-                if(!userAgent.contains("537.36")){
-                    log.debug(userAgent);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 }

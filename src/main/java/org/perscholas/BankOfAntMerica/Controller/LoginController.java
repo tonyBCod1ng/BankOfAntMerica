@@ -40,8 +40,7 @@ public class LoginController {
     @GetMapping("/login")
     ModelAndView index(@RequestParam(required = false) String error, HttpServletRequest request) {
         ModelAndView response = new ModelAndView("auth/login");
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         return response;
     }
     @PostMapping("/login")

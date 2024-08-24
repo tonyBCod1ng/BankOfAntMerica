@@ -39,20 +39,18 @@ nav {
 
 .create-back {
     position: absolute;
-    object-fit: contain;
     opacity: 0.9;
+    height:auto;
     border-radius: 20px;
     z-index: -1;
     margin-left: 55px;
     background-color: rgb(123, 238, 233);
-    height: 93%;
     width: 65%;
-
 }
 
 .create-container {
     object-position: center;
-    height: 100vh;
+    object-fit: contain;
 }
 
 .sticky {

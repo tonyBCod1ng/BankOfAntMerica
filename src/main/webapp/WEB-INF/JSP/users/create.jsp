@@ -3,13 +3,13 @@
 
 <jsp:include page="../Includes/Header.jsp"/>
 
-<section>
-    <div class="row justify-content-center align-items-center">
+<section style="margin-top: -22px">
+    <div  class="row justify-content-center align-items-center">
 
-        <div class="col p-4 col-10 justify-content-center align-items-center ">
-            <div class="create-container">
-                <div class="create-back p"></div>
-                <div class="row justify-content-center text-center pt-4">
+        <div  class="col p-4 col-10 justify-content-center align-items-center">
+            <div style="background-color: rgb(123, 238, 233, 75%); border-radius: 80px;">
+<%--                <div class="create-back"></div>--%>
+                <div  class="row justify-content-center text-center pt-4">
                     <c:choose>
                         <c:when test="${form == null}">
                             <h4>Create Account</h4>

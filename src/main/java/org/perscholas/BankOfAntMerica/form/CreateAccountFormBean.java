@@ -38,8 +38,8 @@ public class CreateAccountFormBean {
     private String email;
 
     @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\s:])(\\S){8,16}$",
-            message = "password must contain 1 number (0-9), 1 non-alpha character, 1 uppercase and lowercase letter</br>" +
-            "and be between 8-16 characters long with no spaces")
+            message = "password must contain 1 number,</br>" +
+                    "1 uppercase letter and be between 8-16 characters long.")
     private String password;
 
     private String role;

@@ -58,8 +58,7 @@ public class AdminController {
 
 
         ModelAndView response = new ModelAndView("admin/dashboard");
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         User user = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("user", user);
         Branch branch = branchDAO.findBranchById(user.getHomeBranch());
@@ -90,8 +89,7 @@ public class AdminController {
         response.addObject(model);
         String accountView = "yes";
         response.addObject("accountView", accountView);
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         if (term != null) {
             List<Account> searchedAccount = accountDAO.findAllByCustomerTerm(term);
             List<Account> shortenedListAccounts = new ArrayList<>(10);
@@ -114,8 +112,7 @@ public class AdminController {
         ModelAndView response = new ModelAndView("admin/searchTool");
         model.addAttribute("currentPage", "searchUser");
         response.addObject(model);
-        boolean isSafari = userService.isSafari(request);
-        response.addObject("isSafari", isSafari);
+
         List<User> users = userDAO.findAllByCustomTerm(term);
         List<User> shortenedListUsers = new ArrayList<>(10);
         Integer count = 10;
