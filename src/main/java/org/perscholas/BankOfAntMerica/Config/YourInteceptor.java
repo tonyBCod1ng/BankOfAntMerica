@@ -20,18 +20,17 @@ public class YourInteceptor implements HandlerInterceptor {
     @Autowired
     private AuthenticatedUserUtils authenticatedUserUtils;
 
-@Override
-public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    User currentUser = authenticatedUserUtils.getCurrentUserObject();
-    if (currentUser != null) {
-        request.setAttribute("currentUser", currentUser);
-        log.info("Current user: {}" , currentUser);
-        return true;
-    }
-    return false;
-}
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) {
+
+        User currentUser = null;
+        if (request.getUserPrincipal() != null) {
+            currentUser = authenticatedUserUtils.getCurrentUserObject();
+            request.setAttribute("currentUser", currentUser);
+        log.debug("Current user: {}" , currentUser);
+        }
+
         boolean isSafari = isSafari(request);
         modelAndView.addObject("isSafari", isSafari);
         log.debug("isSafari:{}", isSafari);
