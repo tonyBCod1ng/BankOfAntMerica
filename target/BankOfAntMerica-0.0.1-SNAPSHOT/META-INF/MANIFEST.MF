@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Created-By: IntelliJ IDEA
-Built-By: tonybcod1ng
-Build-Jdk: Oracle OpenJDK 21.0.2 - aarch64
-Implementation-Title: BankOfAntMerica
-Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: org.perscholas
-Main-Class: ${start-class}
-

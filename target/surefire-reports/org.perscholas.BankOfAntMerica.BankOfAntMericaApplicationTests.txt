@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.perscholas.BankOfAntMerica.BankOfAntMericaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.160 s -- in org.perscholas.BankOfAntMerica.BankOfAntMericaApplicationTests

@@ -1,0 +1,63 @@
+/** Safari */
+
+
+body {
+    font-family: 'Quantico';
+    background-image: url("../images/ant_with_arms_crossed.jpg");
+    background-size: cover;
+    height: 92vh;
+}
+
+
+.container {
+    height: 100%;
+}
+
+nav, input, select {
+    opacity: 0.9;
+}
+
+nav {
+    background-color: rgb(123, 238, 233);
+}
+
+.table {
+    opacity: 0.7;
+    object-fit: contain;
+
+}
+
+.back {
+    position: absolute;
+    border-radius: 20px;
+    z-index: -1;
+    background-color: rgb(123, 238, 233);
+    height: 255px;
+    width: 415px;
+    opacity: 0.5;
+}
+
+.create-back {
+    position: absolute;
+    opacity: 0.9;
+    height:auto;
+    border-radius: 20px;
+    z-index: -1;
+    margin-left: 55px;
+    background-color: rgb(123, 238, 233);
+    width: 65%;
+}
+
+.create-container {
+    object-position: center;
+    object-fit: contain;
+}
+
+.sticky {
+    position: fixed;
+    z-index: 1;
+    width: 120%;
+}
+
+
+
