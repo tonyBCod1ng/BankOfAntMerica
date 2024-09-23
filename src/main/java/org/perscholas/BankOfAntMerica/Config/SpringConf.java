@@ -32,7 +32,7 @@ public class SpringConf {
 
         //         this section says allow all pages EXCEPT the ones that are in the AntPathRequestMatcher
 //         anything in AntPathRequestMatcher will require the user to be authenticated
-        http.authorizeRequests().requestMatchers(new AntPathRequestMatcher("/admin/**"), new AntPathRequestMatcher("/")).authenticated().anyRequest().permitAll();
+        http.authorizeRequests().requestMatchers(new AntPathRequestMatcher("/admin/**"), new AntPathRequestMatcher("/users/account/"), new AntPathRequestMatcher("users/dashboard"), new AntPathRequestMatcher("/")).authenticated().anyRequest().permitAll();
 
 //         the loginPage parameter is the actual URL of the login page
 //         the loginProcessingUrl is the URL that the form will submit to

@@ -1,5 +1,5 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="Includes/Header.jsp"/>
 <script>
@@ -10,7 +10,7 @@
 </script>
 <section style="margin-top: 100px">
     <c:if test="${!bindingResult.hasErrors() && form != null}">
-        <div id="transfer-popup" onclick="removePopup()" = none" class="row pt-5 justify-content-center" style="opacity: 0.8">
+        <div id="transfer-popup" onclick="removePopup()" class="row pt-5 justify-content-center" style="opacity: 0.8">
             <div class="col-6">
                 <div class="alert alert-success text-success" role="alert">Transfer Successful: Transferred <fmt:formatNumber type="currency">${senderTransaction.amount * -1}</fmt:formatNumber>  from Account Id ${senderTransaction.accountId} to Account Id:${receiverTransaction.accountId} on ${senderTransaction.createDate}</div>
             </div>

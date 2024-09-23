@@ -2,7 +2,7 @@
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="reLastEntityCreationPackage" value="src/main/java/org/perscholas/BankOfAntMerica/database/Entity" />
-    <option name="reverseEngineeringLastDbConnectionId" value="662a5921-9ccf-4d07-b3e4-2bf03f90cb08" />
+    <option name="reverseEngineeringLastDbConnectionId" value="c514618b-f3da-4488-94c8-1e2f278807cb" />
   </component>
   <component name="PersistenceUnitSettings">
     <persistence-units>

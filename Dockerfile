@@ -1,9 +1,14 @@
-FROM maven as build
+# Use OpenJDK 21 as base image
+FROM openjdk:21-jdk-slim
 
-LABEL authors="tonybcod1ng"
+# Set the working directory in the container
+WORKDIR /app
 
-COPY . .
+# Copy the WAR file into the container
+COPY target/*.war app.war
 
-RUN mvn clean package
+# Expose the port the app runs on
+EXPOSE 8080
 
-ENTRYPOINT ["top", "-b"]
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "/app/app.war"]

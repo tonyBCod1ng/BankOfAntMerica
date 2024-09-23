@@ -55,11 +55,12 @@ class IndexController {
         model.addAttribute("currentPage", "transfer");
         response.addObject(model);
         String url = request.getRequestURI();
-
-        User user = authenticatedUserUtils.getCurrentUserObject();
+        if(authenticatedUserUtils.isAuthenticated()) {
+            User user = authenticatedUserUtils.getCurrentUserObject();
         response.addObject("user", user);
         List<Account> accounts = accountDAO.findAccountsByUserId(user.getId());
         response.addObject("accounts", accounts);
+        }
         return response;
     }
     @PostMapping("/")

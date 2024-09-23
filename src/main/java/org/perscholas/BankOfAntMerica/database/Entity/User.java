@@ -8,16 +8,14 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
 public class User {
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Account> accounts;
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -55,21 +53,19 @@ public class User {
     private String phone;
 
     @Size(max = 45)
-    @NotNull
-    @Column(name = "email", nullable = false, length = 45)
+    @Column(name = "email", length = 45)
     private String email;
 
     @Size(max = 200)
-    @NotNull
-    @Column(name = "password", nullable = false, length = 200)
+    @Column(name = "password", length = 200)
     private String password;
 
     @NotNull
-    @ColumnDefault("1")
     @Column(name = "home_branch", nullable = false)
     private Integer homeBranch;
 
     @NotNull
+    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
 
