@@ -31,13 +31,13 @@
 
 <c:choose>
 <c:when test="${currentPage == 'searchAccount' || currentPage == 'searchUser'}">
-    style="background-image:url('/webapp/public/images/searchAnt.jpg');
+    style="background-image:url('//images/searchAnt.jpg');
     <c:if test="${isSafari}">
         height: 92.5vh;
     </c:if>"
 </c:when>
     <c:when test="${currentPage == 'transfer'}">
-        style="background-image:url('/webapp/public/images/tellerAnt.jpg');
+        style="background-image:url('//images/tellerAnt.jpg');
         <c:if test="${isSafari}">
             height: 92.5vh;
 
