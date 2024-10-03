@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.9.6'  // Use the version of Maven installed on your Jenkins server
-        jdk 'JDK 21'  // Matches the java.version specified in your POM
+        maven 'M3'  // Use the version of Maven installed on your Jenkins server
+        jdk 'JDK11'  // Matches the java.version specified in your POM
     }
 
     stages {
