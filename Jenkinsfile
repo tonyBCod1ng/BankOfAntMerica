@@ -15,20 +15,25 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'chmod a+x run_build_script.sh'
+                sh './run_build_script.sh'
             }
         }
 
-//         stage('Test') {
-//             steps {
-//                 sh 'mvn test'
-//             }
-//             post {
-//                 always {
-//                     junit '**/target/surefire-reports/*.xml'
-//                 }
-//             }
-//         }
+stage('Test') {
+     parallel {
+       stage('Test On Windows') {
+         steps {
+           echo "Running tests on Windows"
+         }
+       }
+       stage('Test On Linux') {
+         steps {
+           echo "Running tests on Linux"
+         }
+       }
+     }
+   }
 
 //         stage('Static Code Analysis') {
 //             steps {
