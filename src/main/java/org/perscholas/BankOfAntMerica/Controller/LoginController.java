@@ -56,11 +56,11 @@ public class LoginController {
         ModelAndView response = new ModelAndView();
         User user = authenticatedUserUtils.getCurrentUserObject();
         if(authenticatedUserUtils.isUserInRole("ADMIN")){
-            response = new ModelAndView("redirect:http://localhost:8080/admin/dashboard");
+            response = new ModelAndView("redirect:/admin/dashboard");
 
         }
         if(!authenticatedUserUtils.isUserInRole("ADMIN")){
-            response.setViewName("redirect:http://localhost:8080/users/dashboard");
+            response.setViewName("redirect:/users/dashboard");
         }
         response.addObject("user", user);
         return response;

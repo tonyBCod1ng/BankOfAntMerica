@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${managedAccounts}" var="account">
-                    <tr onclick="window.location.assign('http://localhost:8080/users/account/${account.id}')">
+                    <tr onclick="window.location.assign('/users/account/${account.id}')">
                         <td>${account.id}</td>
                         <td>${account.accountType}</td>
                         <td><fmt:formatNumber type="currency" >${account.accountAmount}</fmt:formatNumber></td>
