@@ -14,4 +14,4 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Run the application
-CMD ["java", "-jar", "BankOfAntMerica-0.0.1-SNAPSHOT.war"]
+CMD ["java", "-jar", "target/BankOfAntMerica-0.0.1-SNAPSHOT.war"]
