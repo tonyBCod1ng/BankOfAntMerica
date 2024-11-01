@@ -1,14 +1,14 @@
-# Use OpenJDK 21 as base image
-FROM --platform=$TARGETPLATFORM openjdk:21-jdk-slim
+# Base image
+FROM openjdk:21-jdk-alpine
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the WAR file into the container
-COPY target/*.war app.war
+# Copy the build files
+COPY . .
 
-# Expose the port the app runs on
-EXPOSE 8080
+# Build and package the application (if not built already)
+RUN ./mvnw clean package -DskipTests
 
-# Command to run the application
+# Run the application
 ENTRYPOINT ["java", "-jar", "/app/app.war"]
