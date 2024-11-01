@@ -1,5 +1,5 @@
-# Base image
-FROM openjdk:21-jdk-alpine
+# Use OpenJDK 21 as base image
+FROM openjdk:21-jdk-slim
 
 # Set the working directory
 WORKDIR /app
