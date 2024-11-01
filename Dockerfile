@@ -1,7 +1,8 @@
-# Use OpenJDK 21 as base image
-FROM openjdk:21-jdk-alpine
+# Use a Debian-based OpenJDK image
+FROM openjdk:21-jdk-slim
+
 # Install Maven
-RUN apk add --no-cache maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
