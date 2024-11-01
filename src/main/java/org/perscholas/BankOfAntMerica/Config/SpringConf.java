@@ -19,6 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+
 @Slf4j
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -40,7 +41,7 @@ public class SpringConf {
                 formLogin.loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login/loginSubmit")
                         .successForwardUrl(
-                        "/auth/success"));
+                                "/auth/success"));
 // this is the URL that will log a user out
         http.logout(formLogout -> formLogout
                 .invalidateHttpSession(true)
@@ -58,7 +59,6 @@ public class SpringConf {
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 
 }

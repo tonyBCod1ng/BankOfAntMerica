@@ -9,9 +9,10 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  gcePersistentDisk:  # Replacing hostPath with a GCE Persistent Disk
+    pdName: gke-my-demo-cluster-default-pool-d512ebb6-9m39  # Name of the persistent disk created in GCP
+    fsType: ext4
   storageClassName: standard
-  hostPath:
-    path: "/mnt/data"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

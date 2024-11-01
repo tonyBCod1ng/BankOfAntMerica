@@ -1,5 +1,5 @@
 # Use OpenJDK 21 as base image
-FROM openjdk:21-jdk-slim
+FROM --platform=$TARGETPLATFORM openjdk:21-jdk-slim
 
 # Set the working directory in the container
 WORKDIR /app

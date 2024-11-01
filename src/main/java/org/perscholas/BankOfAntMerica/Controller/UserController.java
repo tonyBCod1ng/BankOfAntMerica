@@ -64,8 +64,6 @@ public class UserController {
     public ModelAndView createAccountSubmit(@Valid CreateAccountFormBean form, BindingResult bindingResult, HttpSession session) {
         ModelAndView response = new ModelAndView();
 
-        // homework if you want - check to make sure the email does not already exist
-        // this is a great case the custom annotation that we made
 
         if (bindingResult.hasErrors()) {
             for (ObjectError error : bindingResult.getAllErrors()) {
