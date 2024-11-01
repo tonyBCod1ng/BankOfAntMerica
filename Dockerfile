@@ -14,4 +14,4 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/app.war"]
+ENTRYPOINT ["java", "-jar", "BankOfAntMerica-0.0.1-SNAPSHOT.war"]
