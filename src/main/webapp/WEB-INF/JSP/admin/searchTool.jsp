@@ -62,7 +62,7 @@
                         <td>${user.homeBranch}</td>
                         <td>${user.email}</td>
                         <td>${user.lastName}, ${user.firstName}</td>
-                        <td><a href="http://localhost:8080/admin/edit/${user.id}">Edit</a></td>
+                        <td><a href="/admin/edit/${user.id}">Edit</a></td>
                     </tr>
 
                 </c:forEach>
